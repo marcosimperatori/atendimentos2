@@ -94,7 +94,6 @@ class EscritorioController extends BaseController
 
         if ($escritorio->hasChanged() == false) {
             $retorno['info'] = "Não houve alteração no registro!";
-
             return $this->response->setJSON($retorno);
         }
 
