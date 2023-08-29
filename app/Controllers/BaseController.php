@@ -35,7 +35,7 @@ abstract class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = ['url', 'app_helper'];
+    protected $helpers = ['url', 'form', 'html',  'app_helper'];
 
     /**
      * Be sure to declare properties for any property fetch you initialized.

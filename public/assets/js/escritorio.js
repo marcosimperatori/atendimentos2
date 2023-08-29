@@ -51,14 +51,14 @@ $("#lista-escritorios").DataTable({
   ],
 });
 
-$("#form_cad_cliente").on("submit", function (e) {
+$("#form_cad_escritorio").on("submit", function (e) {
   e.preventDefault();
   var baseUrl = window.location.href;
 
   if ($(this).hasClass("insert")) {
-    var url = baseUrl.replace("clientes/criar", "clientes/cadastrar");
+    var url = baseUrl.replace("escritorios/criar", "escritorios/cadastrar");
   } else if ($(this).hasClass("update")) {
-    var url = baseUrl.replace("clientes/criar", "/clientes/atualizar");
+    var url = "/escritorios/atualizar"; //baseUrl.replace("escritorios/editar", "escritorios/atualizar");
   }
 
   $.ajax({
@@ -71,25 +71,38 @@ $("#form_cad_cliente").on("submit", function (e) {
     processData: false,
     beforeSend: function () {
       $("#response").html("");
-      $("#form_cad_cliente").LoadingOverlay("show", {
+      $("#form_cad_escritorio").LoadingOverlay("show", {
         background: "rgba(165, 190, 100, 0.5)",
       });
     },
     success: function (response) {
       $("[name=csrf_test_name]").val(response.token);
-      if (response.erro) {
+
+      if (!response.erro) {
+        if (response.info) {
+          $("#response").html(
+            '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+              response.info +
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+              '<span aria-hidden="true">&times;</span>' +
+              "</button>" +
+              "</div>"
+          );
+        } else {
+          //tudo certo na atualização, redirecionar o usuário
+          window.location.href = response.redirect_url;
+        }
+      } else {
         if (response.erros_model) {
           exibirErros(response.erros_model);
         }
-      } else {
-        window.location.href = response.redirect_url;
       }
     },
     error: function () {
       alert("falha ao executar a operação");
     },
     complete: function () {
-      $("#form_cad_cliente").LoadingOverlay("hide");
+      $("#form_cad_escritorio").LoadingOverlay("hide");
     },
   });
 });

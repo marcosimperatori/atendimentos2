@@ -39,6 +39,10 @@ $routes->get('clientes', 'ClienteController::index');
 
 $routes->get('escritorios', 'EscritorioController::index');
 $routes->get('escritorios-all', 'EscritorioController::getAll');
+$routes->get('escritorios/criar', 'EscritorioController::criar');
+$routes->get('escritorios/editar/(:alphanum)', 'EscritorioController::edit/$1');
+$routes->post('escritorios/cadastrar', 'EscritorioController::cadastrar');
+$routes->post('escritorios/atualizar', 'EscritorioController::atualizar');
 
 
 $routes->get('atendimentos', 'AtendeController::index');

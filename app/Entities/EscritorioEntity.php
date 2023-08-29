@@ -7,6 +7,6 @@ use CodeIgniter\Entity\Entity;
 class EscritorioEntity extends Entity
 {
     protected $datamap = [];
-    protected $dates   = ['created_at', 'updated_at', 'deleted_at'];
+    protected $dates   = ['criado_em', 'atualizado_em', 'deleted_at'];
     protected $casts   = [];
 }
