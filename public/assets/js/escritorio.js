@@ -106,3 +106,39 @@ $("#form_cad_escritorio").on("submit", function (e) {
     },
   });
 });
+
+$("#lista-escritorios").on("click", "#excluir-esc", function () {
+  var registro = $(this).data("id");
+  $("#excluir-controle").attr("data-iduser", registro);
+});
+
+$("#excluir-controle").on("click", function () {
+  var idControle = $("#excluir-controle").data("iduser");
+  csrfToken = $('input[name="csrf_test_name"]').val();
+
+  $.ajax({
+    type: "POST",
+    headers: {
+      "X-CSRF-Token": csrfToken,
+    },
+    url: "/clientes/item/excluir",
+    data: { id: idControle },
+    beforeSend: function () {},
+    success: function (response) {
+      $("[name='csrf_test_name']").val(response.token);
+      listarControlesCliente();
+    },
+    error: function () {
+      alert("Falha ao tentar excluir o registro!");
+    },
+    complete: function () {
+      fecharModal("#cancela-exclusao");
+    },
+  });
+});
+
+function fecharModal(idModal) {
+  var botao = $(idModal);
+  // Simulando o clique no botão
+  botao.trigger("click");
+}

@@ -126,8 +126,8 @@ class EscritorioController extends BaseController
             $data[] = [
                 'nome'   => $escritorio->nome,
                 'ativo'  => ($escritorio->ativo == true ? '<i class="fa fa-toggle-on"></i>&nbsp;Ativo' : '<i class="fa fa-toggle-off text-secondary"></i>&nbsp;Inativo'),
-                'acoes'  => '<a  href="' . base_url("escritorios/editar/$id") . '" title="Editar"><i class="fas fa-edit text-success"></i></a> &nbsp; 
-                <a  href="' . base_url("escritorios/excluir/$id") . '" title="Excluir"><i class="fas fa-trash-alt text-danger"></i></a>'
+                'acoes'  => '<div class="d-flex justify-content-between"><a  href="' . base_url("escritorios/editar/$id") . '" title="Editar"><i class="fas fa-edit text-success"></i></a> &nbsp; 
+                <div id="excluir-esc" class="delete-escritorio" data-id="' . $id . '" title="Excluir" style="cursor:pointer;" data-toggle="modal" data-target="#mdDeleteEscritorio"><i class="fas fa-trash-alt text-danger"></i></div></div>'
             ];
         }
 
