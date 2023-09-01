@@ -41,6 +41,8 @@ $routes->get('escritorios', 'EscritorioController::index');
 $routes->get('escritorios-all', 'EscritorioController::getAll');
 $routes->get('escritorios/criar', 'EscritorioController::criar');
 $routes->get('escritorios/editar/(:alphanum)', 'EscritorioController::edit/$1');
+$routes->get('escritorios/deletar/(:alphanum)', 'EscritorioController::deletar/$1');
+$routes->get('escritorios/confirma_exclusao/(:alphanum)', 'EscritorioController::confirma_exclusao/$1');
 $routes->post('escritorios/cadastrar', 'EscritorioController::cadastrar');
 $routes->post('escritorios/atualizar', 'EscritorioController::atualizar');
 

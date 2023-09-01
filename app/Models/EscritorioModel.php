@@ -13,7 +13,7 @@ class EscritorioModel extends Model
     protected $returnType       = '\App\Entities\EscritorioEntity';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['ativo', 'cnpj', 'email', 'nome', 'telefone'];
+    protected $allowedFields    = ['ativo', 'cnpj', 'email', 'nome', 'telefone', 'obs'];
 
     // Dates
     protected $useTimestamps = true;

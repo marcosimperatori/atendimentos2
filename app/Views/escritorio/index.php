@@ -30,34 +30,6 @@
   </div>
 </section>
 
-<!-- Modal exclusão -->
-<div class="modal fade" id="mdDeleteEscritorio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title card-text" id="exampleModalLabel">
-          <i class="fas fa-exclamation-triangle text-danger"></i>
-          Atenção!
-        </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body text-center">
-        Confirma a <strong>exclusão</strong> do controle atual? <br>
-        <p id="descricao-citem" class="font-weight-bold text-danger text-uppercase my-2"></p>
-        <div class="my-4">
-          <p class="muted"><span>Após excluído, esse item deixará de ser apresentado na geração dos controles mensais a partir de então.</span></p>
-        </div>
-        <input type="hidden" id="token">
-      </div>
-      <div class="modal-footer">
-        <button id="cancela-exclusao" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Cancelar</button>
-        <button id="excluir-controle" data-iduser="" type="button" class="btn btn-danger btn-sm">Excluir</button>
-      </div>
-    </div>
-  </div>
-</div>
 <?php $this->endSection(); ?>
 
 <?php echo $this->section('scripts'); ?>

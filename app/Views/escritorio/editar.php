@@ -3,13 +3,14 @@
 <?php echo $this->section('conteudo'); ?>
 <div class="nav">
   <ol class="breadcrumb my-3">
-    <li class="breadcrumb-item"><a href="<?php echo site_url("/"); ?>"><i class="fa-solid fa-house text-success">&nbsp;</i></a></li>
+    <li class="breadcrumb-item"><a href="<?php echo site_url("home"); ?>"><i class="fa-solid fa-house text-success">&nbsp;</i></a></li>
     <li class="breadcrumb-item"><a href="<?php echo site_url("escritorios"); ?>">Escritórios</a></li>
     <li class="breadcrumb-item active" aria-current="page">Edição de escritório</li>
   </ol>
 </div>
 
-<section>
+<section class="container">
+
   <div id="response" class="col-8"></div>
 
   <?php echo form_open('/', ['id' => 'form_cad_escritorio', 'class' => 'update'], ['id' => "$escritorio->id"]) ?>
@@ -22,7 +23,6 @@
   </div>
 
   <?php form_close(); ?>
-  </div>
 </section>
 
 <?php $this->endSection(); ?>

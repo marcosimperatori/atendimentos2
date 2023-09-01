@@ -110,6 +110,32 @@ class EscritorioController extends BaseController
         return $this->response->setJSON($retorno);
     }
 
+    public function deletar($enc_id)
+    {
+        $id = decrypt($enc_id);
+        if (!$id) {
+            return redirect()->to('home');
+        }
+
+        $escritorio = $this->buscaEscritorioOu404($id);
+        $data = [
+            'escritorio' => $escritorio
+        ];
+        return view('escritorio/deletar', $data);
+    }
+
+    public function confirma_exclusao($enc_id)
+    {
+        $id = decrypt($enc_id);
+        if (!$id) {
+            return redirect()->to('home');
+        }
+
+        //faz a rotina de exclusão e redireciona para a lista de escritórios
+        $this->escritorioModel->delete($id);
+        return redirect()->to('escritorios');
+    }
+
     public function getAll()
     {
         //garatindo que este método seja chamado apenas via ajax
@@ -126,8 +152,8 @@ class EscritorioController extends BaseController
             $data[] = [
                 'nome'   => $escritorio->nome,
                 'ativo'  => ($escritorio->ativo == true ? '<i class="fa fa-toggle-on"></i>&nbsp;Ativo' : '<i class="fa fa-toggle-off text-secondary"></i>&nbsp;Inativo'),
-                'acoes'  => '<div class="d-flex justify-content-between"><a  href="' . base_url("escritorios/editar/$id") . '" title="Editar"><i class="fas fa-edit text-success"></i></a> &nbsp; 
-                <div id="excluir-esc" class="delete-escritorio" data-id="' . $id . '" title="Excluir" style="cursor:pointer;" data-toggle="modal" data-target="#mdDeleteEscritorio"><i class="fas fa-trash-alt text-danger"></i></div></div>'
+                'acoes'  => '<a  href="' . base_url("escritorios/editar/$id") . '" title="Editar"><i class="fas fa-edit text-success"></i></a> &nbsp; 
+                             <a  href="' . base_url("escritorios/deletar/$id") . '" title="Excluir"><i class="fas fa-trash-alt text-danger"></i></a>'
             ];
         }
 
