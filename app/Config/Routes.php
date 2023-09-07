@@ -35,6 +35,13 @@ $routes->get('home', 'Home::index');
 
 
 $routes->get('clientes', 'ClienteController::index');
+$routes->get('clientes_get_all', 'ClienteController::getAll');
+$routes->get('clientes/criar', 'ClienteController::criar');
+$routes->get('clientes/editar/(:alphanum)', 'ClienteController::edit/$1');
+$routes->get('clientes/deletar/(:alphanum)', 'ClienteController::deletar/$1');
+$routes->get('clientes/confirma_exclusao/(:alphanum)', 'ClienteController::confirma_exclusao/$1');
+$routes->post('clientes/cadastrar', 'ClienteController::cadastrar');
+$routes->post('clientes/atualizar', 'ClienteController::atualizar');
 
 
 $routes->get('escritorios', 'EscritorioController::index');

@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="<?php echo base_url("assets/fontawesome/css/all.min.css") ?>">
 
   <link href="https://cdn.datatables.net/v/bs4/jq-3.7.0/dt-1.13.6/r-2.5.0/datatables.min.css" rel="stylesheet">
-  <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 </head>
 
 <body>

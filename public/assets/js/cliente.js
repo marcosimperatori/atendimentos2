@@ -1,22 +1,22 @@
 $("#lista-clientes").DataTable({
   oLanguage: DATATABLE_PTBR,
   ajax: {
-    url: "clientes/getall",
+    url: "clientes_get_all",
     beforeSend: function () {
-      $("#tab-clientes").LoadingOverlay("show", {
+      $("#tab-cliente").LoadingOverlay("show", {
         background: "rgba(165, 190, 100, 0.5)",
       });
     },
     complete: function () {
-      $("#tab-clientes").LoadingOverlay("hide");
+      $("#tab-cliente").LoadingOverlay("hide");
     },
   },
   columns: [
     {
-      data: "razao",
+      data: "nome",
     },
     {
-      data: "cidade",
+      data: "escritorio",
     },
     {
       data: "ativo",
@@ -36,38 +36,74 @@ $("#lista-clientes").DataTable({
   pageLength: 10,
   columnDefs: [
     {
-      width: "180px",
+      width: "250px",
       targets: [1],
     },
     {
-      width: "100px",
+      width: "40px",
       targets: [2],
     },
     {
-      width: "70px",
-      targets: [3],
-    },
-    {
+      width: "40px",
       className: "text-center",
       targets: [3],
     },
   ],
 });
 
-$(document).ready(function () {
-  $.get("estados", function (data) {
-    // Limpe o elemento select
-    $("#uf").empty();
-    $("#uf").append("<option value=''>...</option>");
-    $("#cidade").attr("disabled", true);
+$("#form_cad_cliente").on("submit", function (e) {
+  e.preventDefault();
+  var baseUrl = window.location.href;
 
-    // Itere sobre os dados
-    $.each(data, function (key, value) {
-      // Adicione uma nova opção ao elemento select
-      $("#uf").append(
-        "<option value='" + value.uf + "'>" + value.uf + "</option>"
-      );
-    });
+  if ($(this).hasClass("insert")) {
+    var url = baseUrl.replace("clientes/criar", "clientes/cadastrar");
+  } else if ($(this).hasClass("update")) {
+    var url = "/clientes/atualizar"; //baseUrl.replace("escritorios/editar", "escritorios/atualizar");
+  }
+
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: new FormData(this),
+    dataType: "json",
+    contentType: false,
+    cache: false,
+    processData: false,
+    beforeSend: function () {
+      $("#response").html("");
+      $("#form_cad_escritorio").LoadingOverlay("show", {
+        background: "rgba(165, 190, 100, 0.5)",
+      });
+    },
+    success: function (response) {
+      $("[name=csrf_test_name]").val(response.token);
+
+      if (!response.erro) {
+        if (response.info) {
+          $("#response").html(
+            '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+              response.info +
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+              '<span aria-hidden="true">&times;</span>' +
+              "</button>" +
+              "</div>"
+          );
+        } else {
+          //tudo certo na atualização, redirecionar o usuário
+          window.location.href = response.redirect_url;
+        }
+      } else {
+        if (response.erros_model) {
+          exibirErros(response.erros_model);
+        }
+      }
+    },
+    error: function () {
+      alert("falha ao executar a operação");
+    },
+    complete: function () {
+      $("#form_cad_escritorio").LoadingOverlay("hide");
+    },
   });
 });
 
@@ -128,85 +164,3 @@ function buscaCNPJ() {
     }
   });
 }
-
-/*
-$("#teste").selectize11({
-  valueField: "id",
-  labelField: "nome",
-  searchField: "nome",
-  placeholder: "Pesquisar cidade",
-  maxItems: 1,
-  render: {
-    option: function (item, escape) {
-      return (
-        '<div class="font-weight-bold text-primary ml-1"><i class="fas fa-long-arrow-alt-right text-secondary"></i>&nbsp;&nbsp;' +
-        "<strong>" +
-        item.nome +
-        "/" +
-        item.uf +
-        "</strong>" +
-        '<br><strong class="text-success mx-3 my-3">' +
-        "&nbsp; Código IBGE: " +
-        item.codigo_ibge +
-        "</strong>" +
-        "</div>"
-      );
-    },
-  },
-  load: function (query, callback) {
-    if (query.length < 2) return callback();
-    $.ajax({
-      url: "consulta_cidade",
-      data: {
-        q: query,
-      },
-      dataType: "json",
-      success: function (response) {
-        callback(response.data);
-      },
-    });
-  },
-});*/
-
-$("#form_cad_cliente").on("submit", function (e) {
-  e.preventDefault();
-  var baseUrl = window.location.href;
-
-  if ($(this).hasClass("insert")) {
-    var url = baseUrl.replace("clientes/criar", "clientes/cadastrar");
-  } else if ($(this).hasClass("update")) {
-    var url = baseUrl.replace("clientes/criar", "/clientes/atualizar");
-  }
-
-  $.ajax({
-    type: "POST",
-    url: url,
-    data: new FormData(this),
-    dataType: "json",
-    contentType: false,
-    cache: false,
-    processData: false,
-    beforeSend: function () {
-      $("#response").html("");
-      $("#form_cad_cliente").LoadingOverlay("show", {
-        background: "rgba(165, 190, 100, 0.5)",
-      });
-    },
-    success: function (response) {
-      $("[name=csrf_test_name]").val(response.token);
-      if (response.erro) {
-        if (response.erros_model) {
-          exibirErros(response.erros_model);
-        }
-      } else {
-        window.location.href = response.redirect_url;
-      }
-    },
-    error: function () {
-      alert("falha ao executar a operação");
-    },
-    complete: function () {
-      $("#form_cad_cliente").LoadingOverlay("hide");
-    },
-  });
-});
