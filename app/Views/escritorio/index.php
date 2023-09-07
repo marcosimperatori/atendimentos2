@@ -5,7 +5,7 @@
 <div class="nav">
   <ol class="breadcrumb my-3">
     <li class="breadcrumb-item"><a href="<?= base_url('home') ?>"><i class="fa-solid fa-house text-success">&nbsp;</i></a></li>
-    <li class="breadcrumb-item active">Cadastro de escritórios</li>
+    <li class="breadcrumb-item active">Listagem de escritórios</li>
   </ol>
 </div>
 

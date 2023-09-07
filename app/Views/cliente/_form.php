@@ -36,13 +36,3 @@
     <label for="ativo" class="custom-control-label">&nbsp;Cliente ativo</label>
   </div>
 </div>
-
-<script>
-  document.querySelector('form_cad_cliente').addEventListener('submit', function(event) {
-    const selectValue = document.querySelector('#escritorio').value;
-    if (selectValue === 'Selecione...') {
-      alert('Por favor, escolha o escritório ao qual o cliente está vinculado.');
-      event.preventDefault(); // Impede o envio do formulário
-    }
-  });
-</script>

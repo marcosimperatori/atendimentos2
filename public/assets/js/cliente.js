@@ -53,58 +53,64 @@ $("#lista-clientes").DataTable({
 
 $("#form_cad_cliente").on("submit", function (e) {
   e.preventDefault();
-  var baseUrl = window.location.href;
+  const selectValue = $("#escritorio").val();
+  if (selectValue === "") {
+    alert("Por favor, vincule o cliente a um escritório.");
+    return false; // Impede o envio do formulário
+  } else {
+    var baseUrl = window.location.href;
 
-  if ($(this).hasClass("insert")) {
-    var url = baseUrl.replace("clientes/criar", "clientes/cadastrar");
-  } else if ($(this).hasClass("update")) {
-    var url = "/clientes/atualizar"; //baseUrl.replace("escritorios/editar", "escritorios/atualizar");
-  }
+    if ($(this).hasClass("insert")) {
+      var url = baseUrl.replace("clientes/criar", "clientes/cadastrar");
+    } else if ($(this).hasClass("update")) {
+      var url = "/clientes/atualizar"; //baseUrl.replace("escritorios/editar", "escritorios/atualizar");
+    }
 
-  $.ajax({
-    type: "POST",
-    url: url,
-    data: new FormData(this),
-    dataType: "json",
-    contentType: false,
-    cache: false,
-    processData: false,
-    beforeSend: function () {
-      $("#response").html("");
-      $("#form_cad_escritorio").LoadingOverlay("show", {
-        background: "rgba(165, 190, 100, 0.5)",
-      });
-    },
-    success: function (response) {
-      $("[name=csrf_test_name]").val(response.token);
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: new FormData(this),
+      dataType: "json",
+      contentType: false,
+      cache: false,
+      processData: false,
+      beforeSend: function () {
+        $("#response").html("");
+        $("#form_cad_cliente").LoadingOverlay("show", {
+          background: "rgba(165, 190, 100, 0.5)",
+        });
+      },
+      success: function (response) {
+        $("[name=csrf_test_name]").val(response.token);
 
-      if (!response.erro) {
-        if (response.info) {
-          $("#response").html(
-            '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
-              response.info +
-              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-              '<span aria-hidden="true">&times;</span>' +
-              "</button>" +
-              "</div>"
-          );
+        if (!response.erro) {
+          if (response.info) {
+            $("#response").html(
+              '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                response.info +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span>' +
+                "</button>" +
+                "</div>"
+            );
+          } else {
+            //tudo certo na atualização, redirecionar o usuário
+            window.location.href = response.redirect_url;
+          }
         } else {
-          //tudo certo na atualização, redirecionar o usuário
-          window.location.href = response.redirect_url;
+          if (response.erros_model) {
+            exibirErros(response.erros_model);
+          }
         }
-      } else {
-        if (response.erros_model) {
-          exibirErros(response.erros_model);
-        }
-      }
-    },
-    error: function () {
-      alert("falha ao executar a operação");
-    },
-    complete: function () {
-      $("#form_cad_escritorio").LoadingOverlay("hide");
-    },
-  });
+      },
+      error: function () {
+        alert("falha ao executar a operação");
+      },
+      complete: function () {
+        $("#form_cad_cliente").LoadingOverlay("hide");
+      },
+    });
+  }
 });
 
 /*

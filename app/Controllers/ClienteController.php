@@ -63,7 +63,7 @@ class ClienteController extends BaseController
             //captura o id do cliente que acabou de ser inserido no banco de dados
             $retorno['id'] = $this->clienteModel->getInsertID();
             $NovoCliente = $this->buscaClienteOu404($retorno['id']);
-            session()->setFlashdata('sucesso', "O registro ($NovoCliente->nome) foi incluído no sistema");
+            session()->setFlashdata('sucesso', "O registro ($NovoCliente->nomecli) foi incluído no sistema");
             $retorno['redirect_url'] = base_url('clientes');
 
             return $this->response->setJSON($retorno);
