@@ -16,7 +16,7 @@ class TipoController extends BaseController
 
     public function index()
     {
-        $tipos = $this->tipoModel->select('descricao,midia')->orderBy('descricao', 'asc')->findAll();
+        $tipos = $this->tipoModel->select('id,descricao,midia')->orderBy('descricao', 'asc')->findAll();
         $data = [
             'tipos' => $tipos
         ];

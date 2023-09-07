@@ -32,7 +32,10 @@
               </td>
               <td><?php echo $tipo->midia; ?></option>
               </td>
-              <td>actions</td>
+              <td class="text-center">
+                <a href="<?php echo base_url("tipos/editar/" . encrypt($tipo->id)); ?>"><i class="fas fa-edit text-success"></i></a>
+                <a href="<?php echo base_url("tipos/excluir/" . encrypt($tipo->id)); ?>"><i class="fas fa-trash-alt text-danger"></i></a>
+              </td>
             </tr>
           <?php endforeach; ?>
         </tbody>
