@@ -56,6 +56,10 @@ $routes->post('escritorios/atualizar', 'EscritorioController::atualizar');
 
 $routes->get('atendimentos', 'AtendeController::index');
 
+$routes->get('certificados', 'CertificadoController::index');
+
+$routes->get('tipos', 'TipoController::index');
+
 
 $routes->get('logout', 'LoginController::logout');
 $routes->post('logar', 'LoginController::logar');
