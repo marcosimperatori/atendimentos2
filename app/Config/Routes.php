@@ -57,6 +57,7 @@ $routes->post('escritorios/atualizar', 'EscritorioController::atualizar');
 $routes->get('atendimentos', 'AtendeController::index');
 
 $routes->get('certificados', 'CertificadoController::index');
+$routes->get('certificados_get_all', 'CertificadoController::getAll');
 
 $routes->get('tipos', 'TipoController::index');
 

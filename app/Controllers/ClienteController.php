@@ -167,7 +167,7 @@ class ClienteController extends BaseController
             $data[] = [
                 'nome'       => $cliente->nomecli,
                 'escritorio' => $cliente->nome,
-                'ativo'      => ($cliente->ativo == true ? '<i class="fa fa-toggle-on"></i>&nbsp;Ativo' : '<i class="fa fa-toggle-off text-secondary"></i>&nbsp;Inativo'),
+                'ativo'      => ($cliente->ativo == true ? '<i class="fas fa-lightbulb text-success"></i>&nbsp;Ativo' : '<i class="fas fa-lightbulb text-secondary"></i>&nbsp;Inativo'),
                 'acoes'      => '<a  href="' . base_url("clientes/editar/$id") . '" title="Editar"><i class="fas fa-edit text-success"></i></a> &nbsp; 
                                  <a  href="' . base_url("clientes/deletar/$id") . '" title="Excluir"><i class="fas fa-trash-alt text-danger"></i></a>'
             ];
