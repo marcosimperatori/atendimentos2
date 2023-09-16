@@ -7,7 +7,7 @@
 <div class="row">
   <div class="form-group col-lg-5">
     <label for="uf" class="form-label mt-2">CNPJ</label>
-    <input type="text" class="form-control" id="cnpj" name="cnpj" value="<?php echo esc($escritorio->cnpj); ?>" placeholder="Digite o CNPJ">
+    <input type="text" class="form-control cnpj" id="cnpj" name="cnpj" value="<?php echo esc($escritorio->cnpj); ?>" placeholder="Digite o CNPJ">
     <div id="response2" class="mt-2"></div>
   </div>
 

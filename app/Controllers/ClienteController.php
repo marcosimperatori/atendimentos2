@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\CertificadoModel;
 use App\Models\ClienteModel;
 use App\Models\EscritorioModel;
 
@@ -76,6 +77,16 @@ class ClienteController extends BaseController
         return $this->response->setJSON($retorno);
     }
 
+    private function historicoCliente($idCliente = null)
+    {
+        $certificados = new CertificadoModel();
+        $historico = $certificados->select('tipos.descricao, tipos.midia, certificados.emissao_em, certificados.validade,certificados.preco_venda,certificados.comissao_esc')
+            ->join('tipos', 'tipos.id = certificados.idtipo')
+            ->where('idcliente', $idCliente)
+            ->orderBy('emissao_em', 'desc')->findAll();
+        return $historico;
+    }
+
     public function edit($enc_id)
     {
         $id = decrypt($enc_id);
@@ -85,11 +96,13 @@ class ClienteController extends BaseController
 
         $cliente = $this->buscaClienteOu404($id);
         $escritorios = $this->getEscritorios();
+        $historicos = $this->historicoCliente($id);
 
         $data = [
             'titulo' => "Editando o escritório",
             'cliente' => $cliente,
-            'escritorios' => $escritorios
+            'escritorios' => $escritorios,
+            'historicos' => $historicos
         ];
         return view('cliente/editar', $data);
     }

@@ -53,7 +53,7 @@ class TipoCertificado extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addUniqueKey('descricao');
+        //$this->forge->addUniqueKey('descricao');
         $this->forge->createTable('tipos');
     }
 

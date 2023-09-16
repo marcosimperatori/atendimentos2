@@ -10,11 +10,10 @@
   </ol>
 </div>
 
-<section>
+<div class="row">
+  <div class="col-lg-7">
+    <div id="response" class="col-8"></div>
 
-  <div id="response" class="col-8"></div>
-
-  <div class="col-8">
     <div class="card border-secondary mt-5">
       <div class="card-header bg-light gap-0">
         <h4 class="text-primary">Cadastro de cliente</h4>
@@ -33,8 +32,35 @@
       </div>
     </div>
   </div>
-</section>
 
+  <div class="col-lg-5 mt-5 mb-2">
+    <div class="accordion" id="accordionExample">
+      <div class="card">
+        <div class="card-header" id="headingOne">
+          <h2 class="mb-0">
+            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <i class="fas fa-history text-danger"></i>&nbsp;Histórico de renovações do cliente (<?php echo count($historicos); ?>)
+            </button>
+          </h2>
+        </div>
+
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+          <div class="card-body">
+            <?php if (count($historicos) > 0) : ?>
+              <?php foreach ($historicos as $historico) : ?>
+                <ul>
+                  <li><?php echo 'Emissão: ' . date('d/m/Y', strtotime($historico->emissao_em)) . ' | ' . $historico->descricao . ' | Validade: ' . date('d/m/Y', strtotime($historico->validade)); ?></li>
+                </ul>
+              <?php endforeach ?>
+            <?php else : ?>
+              <p>Não existe histórico.</p>
+            <?php endif ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <?php $this->endSection(); ?>
 
 <?php echo $this->section('scripts'); ?>
