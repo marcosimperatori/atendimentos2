@@ -45,8 +45,23 @@ $("#certificados-emitidos").DataTable({
   pageLength: 10,
   columnDefs: [
     {
-      width: "50px",
+      type: "date", // Defina o tipo de dados como "date" para a coluna de datas
+      targets: [0], // Especifique a coluna de datas
+      render: function (data, type, row) {
+        // Renderizar a data no formato "YYYY-MM-DD" para ordenação
+        if (type === "sort" || type === "type") {
+          return data.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$3-$2-$1");
+        }
+        return data;
+      },
+    },
+    {
+      width: "65px",
       targets: [0],
+    },
+    {
+      width: "360px",
+      targets: [1],
     },
     {
       width: "15px",
@@ -59,7 +74,7 @@ $("#certificados-emitidos").DataTable({
       targets: [3],
     },
     {
-      width: "50px",
+      width: "65px",
       targets: [4],
     },
     {
@@ -71,21 +86,25 @@ $("#certificados-emitidos").DataTable({
       targets: [6],
     },
   ],
+  order: [[0, "desc"]],
 });
 
-$("#form_cad_cliente").on("submit", function (e) {
+$("#form_cad_certificado").on("submit", function (e) {
   e.preventDefault();
-  const selectValue = $("#escritorio").val();
+  const selectValue = $("#idcliente").val();
   if (selectValue === "") {
-    alert("Por favor, vincule o cliente a um escritório.");
+    alert("Por favor, selecione um cliente!");
     return false; // Impede o envio do formulário
   } else {
     var baseUrl = window.location.href;
 
     if ($(this).hasClass("insert")) {
-      var url = baseUrl.replace("clientes/criar", "clientes/cadastrar");
+      var url = baseUrl.replace(
+        "certificados/emitir",
+        "certificados/cadastrar"
+      );
     } else if ($(this).hasClass("update")) {
-      var url = "/clientes/atualizar"; //baseUrl.replace("escritorios/editar", "escritorios/atualizar");
+      var url = "/certificados/atualizar"; //baseUrl.replace("escritorios/editar", "escritorios/atualizar");
     }
 
     $.ajax({
@@ -129,10 +148,42 @@ $("#form_cad_cliente").on("submit", function (e) {
         alert("falha ao executar a operação");
       },
       complete: function () {
-        $("#form_cad_cliente").LoadingOverlay("hide");
+        $("#form_cad_certificado").LoadingOverlay("hide");
       },
     });
   }
+});
+
+$("#idtipo").change(function () {
+  var selectedOption = $(this).find("option:selected");
+  var valor = selectedOption.data("valor");
+
+  if (typeof valor !== "undefined") {
+    $("#preco_venda").val(valor);
+    $("#preco_venda").focus();
+    calcularValidade($("#emissao_em"));
+  } else {
+    $("#preco_venda").val("");
+  }
+});
+
+function calcularValidade(emissaoEm) {
+  var selectedDate = new Date($(emissaoEm).val());
+  var selectedOption = $("#idtipo").find("option:selected");
+  var anos = selectedOption.data("anos");
+
+  if (!isNaN(selectedDate.getTime())) {
+    selectedDate.setFullYear(selectedDate.getFullYear() + anos);
+    var formattedDate = selectedDate.toISOString().slice(0, 10);
+
+    $("#validade").val(formattedDate);
+  } else {
+    //alert("Data inválida!");
+  }
+}
+
+$("#emissao_em").change(function () {
+  calcularValidade(this);
 });
 
 /*

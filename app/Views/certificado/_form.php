@@ -15,18 +15,24 @@
     <select name="idtipo" id="idtipo" class="form-control">
       <option value="" selected>...</option>
       <?php foreach ($tipos as $tipo) : ?>
-        <option value="<?php echo $tipo->id; ?>" <?php echo ($tipo->id == $certificado->idtipo) ? 'selected' : ''; ?>>
-          <?php echo $certificado->tipo . ' - ' . $certificado->midia; ?></option>
+        <option data-valor="<?php echo $tipo->preco_venda; ?>" data-anos="<?php echo $tipo->validade; ?>" value="<?php echo $tipo->id; ?>" <?php echo ($tipo->id == $certificado->idtipo) ? 'selected' : ''; ?>>
+          <?php echo $tipo->descricao . ' - ' . $tipo->midia; ?></option>
       <?php endforeach; ?>
     </select>
   </div>
 
   <div class="form-group col-lg-3">
-
+    <label for="preco_venda" class="form-label mt-2">Preço de venda</label>
+    <input type="text" class="form-control money" id="preco_venda" name="preco_venda" value="">
   </div>
 
-  <div class="form-group col-lg-7">
-    <label for="emailcli" class="form-label mt-2">Email</label>
-    <input type="email" class="form-control" id="emailcli" aria-describedby="emailHelp" name="emailcli" value="<?php echo esc($cliente->emailcli); ?>" placeholder="Digite o email do cliente">
+  <div class="form-group col-lg-3">
+    <label for="emissao_em" class="form-label mt-2">Emitido em</label>
+    <input type="date" class="form-control" id="emissao_em" name="emissao_em" value="">
+  </div>
+
+  <div class="form-group col-lg-3">
+    <label for="validade" class="form-label mt-2">Válido até</label>
+    <input type="date" class="form-control" id="validade" name="validade" value="">
   </div>
 </div>

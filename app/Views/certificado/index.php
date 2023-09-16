@@ -22,9 +22,10 @@
           <tr>
             <th scope="col">Emissão</th>
             <th scope="col">Cliente</th>
-            <th scope="col">Tipo</th>
             <th scope="col">Mídia</th>
+            <th scope="col">Tipo</th>
             <th scope="col">Vencimento</th>
+            <th scope="col">Situação</th>
             <th scope="col" class="text-center">Ações</th>
           </tr>
         </thead>

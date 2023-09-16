@@ -58,6 +58,8 @@ $routes->get('atendimentos', 'AtendeController::index');
 
 $routes->get('certificados', 'CertificadoController::index');
 $routes->get('certificados_get_all', 'CertificadoController::getAll');
+$routes->get('certificados/emitir', 'CertificadoController::criar');
+$routes->post('certificados/cadastrar', 'CertificadoController::cadastrar');
 
 $routes->get('tipos', 'TipoController::index');
 
