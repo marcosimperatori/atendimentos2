@@ -77,6 +77,55 @@ class CertificadoController extends BaseController
         return $this->response->setJSON($retorno);
     }
 
+    public function edit($enc_id)
+    {
+        $id = decrypt($enc_id);
+        if (!$id) {
+            return redirect()->to('home');
+        }
+
+        $certificado = $this->buscaCertificadoOu404($id);
+        $clientes = $this->clienteModel->select('id,nomecli')->where('ativo', 1)->orderBy('nomecli', 'asc')->findAll();
+        $tipos = $this->tipoModel->select('id,descricao,midia,preco_venda,validade')->orderBy('descricao', 'asc')->findAll();
+
+        $data = [
+            'titulo' => "Editando certificado",
+            'certificado' => $certificado,
+            'clientes' => $clientes,
+            'tipos' => $tipos
+        ];
+        return view('certificado/editar', $data);
+    }
+
+    public function atualizar()
+    {
+        if (!$this->request->isAJAX()) {
+            return redirect()->back();
+        }
+
+        $retorno['token'] = csrf_hash();
+        $post = $this->request->getPost();
+        $certificado = $this->buscaCertificadoOu404($post['id']);
+        $certificado->fill($post);
+
+        if ($certificado->hasChanged() == false) {
+            $retorno['info'] = "Não houve alteração no registro!";
+            return $this->response->setJSON($retorno);
+        }
+
+        if ($this->certificadoModel->protect(false)->save($certificado)) {
+            session()->setFlashdata('sucesso', "O registro foi atualizado");
+            $retorno['redirect_url'] = base_url('certificados');
+            return $this->response->setJSON($retorno);
+        }
+
+        //se chegou até aqui, é porque tem erros de validação
+        $retorno['erro'] = "Verifique os aviso de erro e tente novamente";
+        $retorno['erros_model'] = $this->certificadoModel->errors();
+
+        return $this->response->setJSON($retorno);
+    }
+
     public function emitir()
     {
         $certificados = $this->certificadoModel->select('clientes.id,clientes.nomecli,escritorios.nome')
@@ -130,5 +179,15 @@ class CertificadoController extends BaseController
         ];
 
         return $this->response->setJSON($retorno);
+    }
+
+    private function buscaCertificadoOu404(int $id = null)
+    {
+        //vai considerar inclusive os registros excluídos (softdelete)
+        if (!$id || !$certificado = $this->certificadoModel->find($id)) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Certificado não encontrado com o ID: $id");
+        }
+
+        return $certificado;
     }
 }

@@ -23,16 +23,16 @@
 
   <div class="form-group col-lg-3">
     <label for="preco_venda" class="form-label mt-2">Preço de venda</label>
-    <input type="text" class="form-control money" id="preco_venda" name="preco_venda" value="">
+    <input type="text" class="form-control money" id="preco_venda" name="preco_venda" value="<?php echo $certificado->preco_venda ?>">
   </div>
 
   <div class="form-group col-lg-3">
     <label for="emissao_em" class="form-label mt-2">Emitido em</label>
-    <input type="date" class="form-control" id="emissao_em" name="emissao_em" value="">
+    <input type="date" class="form-control" id="emissao_em" name="emissao_em" value="<?php echo $certificado->emissao_em ?>">
   </div>
 
   <div class="form-group col-lg-3">
     <label for="validade" class="form-label mt-2">Válido até</label>
-    <input type="date" class="form-control" id="validade" name="validade" value="">
+    <input type="date" class="form-control" id="validade" name="validade" value="<?php echo $certificado->validade ?>">
   </div>
 </div>
