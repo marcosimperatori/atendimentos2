@@ -11,7 +11,7 @@
 
 <?php echo $this->include('layout/mensagem'); ?>
 
-<section id="tab-tipo" class="my-2">
+<section id="tab-tipos" class="my-2">
   <div class="card border-secondary mb-3" style="max-width: 100%;">
     <div class="card-header bg-light">
       <a href="<?php echo base_url('tipos/criar'); ?>" class="btn btn-primary btn-sm mb-4" title="Permite incluir um novo tipo de certificado no sistema">Inserir</a>
@@ -47,6 +47,6 @@
 <?php $this->endSection(); ?>
 
 <?php echo $this->section('scripts'); ?>
-<script src="<?php echo base_url("assets/js/cliente.js") ?>"></script>
+<script src="<?php echo base_url("assets/js/tipo.js") ?>"></script>
 
 <?php echo $this->endSection(); ?>

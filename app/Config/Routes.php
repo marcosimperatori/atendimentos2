@@ -43,7 +43,6 @@ $routes->get('clientes/confirma_exclusao/(:alphanum)', 'ClienteController::confi
 $routes->post('clientes/cadastrar', 'ClienteController::cadastrar');
 $routes->post('clientes/atualizar', 'ClienteController::atualizar');
 
-
 $routes->get('escritorios', 'EscritorioController::index');
 $routes->get('escritorios-all', 'EscritorioController::getAll');
 $routes->get('escritorios/criar', 'EscritorioController::criar');
@@ -53,18 +52,25 @@ $routes->get('escritorios/confirma_exclusao/(:alphanum)', 'EscritorioController:
 $routes->post('escritorios/cadastrar', 'EscritorioController::cadastrar');
 $routes->post('escritorios/atualizar', 'EscritorioController::atualizar');
 
-
-$routes->get('atendimentos', 'AtendeController::index');
-
 $routes->get('certificados', 'CertificadoController::index');
 $routes->get('certificados_get_all', 'CertificadoController::getAll');
 $routes->get('certificados/emitir', 'CertificadoController::criar');
 $routes->post('certificados/cadastrar', 'CertificadoController::cadastrar');
 $routes->get('certificados/editar/(:alphanum)', 'CertificadoController::edit/$1');
 $routes->post('certificados/atualizar', 'CertificadoController::atualizar');
+$routes->get('certificados/deletar/(:alphanum)', 'CertificadoController::deletar/$1');
+$routes->get('certificados/confirma_exclusao/(:alphanum)', 'CertificadoController::confirma_exclusao/$1');
 
 $routes->get('tipos', 'TipoController::index');
+$routes->get('tipos-all', 'TipoController::getAll');
+$routes->get('tipos/criar', 'TipoController::criar');
+$routes->get('tipos/editar/(:alphanum)', 'TipoController::edit/$1');
+$routes->get('tipos/deletar/(:alphanum)', 'TipoController::deletar/$1');
+$routes->get('tipos/confirma_exclusao/(:alphanum)', 'TipoController::confirma_exclusao/$1');
+$routes->post('tipos/cadastrar', 'TipoController::cadastrar');
+$routes->post('tipos/atualizar', 'TipoController::atualizar');
 
+$routes->get('atendimentos', 'AtendeController::index');
 
 $routes->get('logout', 'LoginController::logout');
 $routes->post('logar', 'LoginController::logar');

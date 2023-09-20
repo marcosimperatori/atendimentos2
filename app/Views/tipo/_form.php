@@ -12,17 +12,17 @@
 
   <div class="form-group col-lg-4">
     <label for="validade" class="form-label mt-2">Validade</label>
-    <input type="text" class="form-control" id="validade" name="validade" value="<?php echo esc($cliente->validade); ?>">
+    <input type="text" class="form-control" id="validade" name="validade" value="<?php echo esc($tipo->validade); ?>">
   </div>
 </div>
 
 <div class="row">
   <div class="form-group col-lg-3">
-    <label for="preco_custo" class="form-label mt-2">Descricao</label>
-    <input type="text" class="form-control" id="preco_custo" name="preco_custo" value="<?php echo esc($tipo->preco_custo); ?>">
+    <label for="preco_custo" class="form-label mt-2">Preço custo</label>
+    <input type="text" class="form-control money" id="preco_custo" name="preco_custo" value="<?php echo esc($tipo->preco_custo); ?>">
   </div>
   <div class="form-group col-lg-3">
-    <label for="preco_venda" class="form-label mt-2">Descricao</label>
-    <input type="text" class="form-control" id="preco_venda" name="preco_venda" value="<?php echo esc($tipo->preco_venda); ?>">
+    <label for="preco_venda" class="form-label mt-2">Preço venda</label>
+    <input type="text" class="form-control money" id="preco_venda" name="preco_venda" value="<?php echo esc($tipo->preco_venda); ?>">
   </div>
 </div>

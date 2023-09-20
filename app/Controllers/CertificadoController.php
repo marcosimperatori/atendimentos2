@@ -142,6 +142,39 @@ class CertificadoController extends BaseController
         ];
     }
 
+    public function deletar($enc_id)
+    {
+        $id = decrypt($enc_id);
+        if (!$id) {
+            return redirect()->to('home');
+        }
+
+        $certificado = $this->buscaCertificadoOu404($id);
+
+        $registro = $this->certificadoModel->select('clientes.nomecli,tipos.descricao,tipos.midia,certificados.emissao_em,certificados.validade,certificados.id')
+            ->join('clientes', 'clientes.id = certificados.idcliente')
+            ->join('tipos', 'tipos.id = certificados.idtipo')
+            ->where('certificados.id', $certificado->id)
+            ->first();
+
+        $data = [
+            'certificado' => $registro
+        ];
+        return view('certificado/deletar', $data);
+    }
+
+    public function confirma_exclusao($enc_id)
+    {
+        $id = decrypt($enc_id);
+        if (!$id) {
+            return redirect()->to('home');
+        }
+
+        //faz a rotina de exclusão e redireciona para a lista de escritórios
+        $this->certificadoModel->delete($id);
+        return redirect()->to('certificados');
+    }
+
     public function getAll()
     {
         //garatindo que este método seja chamado apenas via ajax

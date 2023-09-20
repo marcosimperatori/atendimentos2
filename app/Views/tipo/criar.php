@@ -17,7 +17,7 @@
     <div class="col-8">
       <div class="card border-secondary mt-5">
         <div class="card-header bg-light">
-          <h4 class="text-primary">Cadastro de cliente</h4>
+          <h4 class="text-primary">Cadastro de tipo de certificado</h4>
         </div>
         <div class="card-body">
 
