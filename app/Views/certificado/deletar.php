@@ -6,7 +6,7 @@
   <div class="nav">
     <ol class="breadcrumb my-3">
       <li class="breadcrumb-item"><a href="<?php echo site_url("home"); ?>"><i class="fa-solid fa-house text-success">&nbsp;</i></a></li>
-      <li class="breadcrumb-item"><a href="<?php echo site_url("certificados"); ?>">Listagem de certificados</a></li>
+      <li class="breadcrumb-item"><a href="<?php echo site_url("certificados"); ?>">Certificados emitidos</a></li>
       <li class="breadcrumb-item active" aria-current="page">Exclusão de certificado</li>
     </ol>
   </div>
