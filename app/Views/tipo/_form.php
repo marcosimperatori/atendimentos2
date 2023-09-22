@@ -1,28 +1,29 @@
 <div class="row">
-  <div class="form-group col-lg-3">
+  <div class="form-group col-lg-3 col-md-6 col-sm-12">
     <label for="descricao" class="form-label mt-2">Descricao</label>
-    <input type="text" class="form-control" id="descricao" aria-describedby="razao" name="descricao" value="<?php echo esc($tipo->descricao); ?>" placeholder="Exemplo: A1">
-  </div>
-
-  <div class="form-group col-lg-5">
-    <label for="midia" class="form-label mt-2">Tipo de mídia</label>
-    <input type="text" class="form-control" id="midia" name="midia" value="<?php echo esc($tipo->midia); ?>" placeholder="Tipo de mídia">
+    <select name="descricao" class="form-control form-control-sm" id="descricao">
+      <option value="A1" <?php echo ($tipo->descricao == "A1" ? 'selected' : ''); ?>>A1</option>
+      <option value="A3" <?php echo ($tipo->descricao == "A3" ? 'selected' : ''); ?>>A3</option>
+    </select>
     <div id="response2" class="mt-2"></div>
   </div>
 
-  <div class="form-group col-lg-4">
-    <label for="validade" class="form-label mt-2">Validade</label>
-    <input type="text" class="form-control" id="validade" name="validade" value="<?php echo esc($tipo->validade); ?>">
+  <div class="form-group col-lg-3 col-md-6 col-sm-12">
+    <label for="midia" class="form-label mt-2">Tipo de mídia</label>
+    <select name="midia" class="form-control form-control-sm" id="midia">
+      <option value="eCPF" <?php echo ($tipo->midia == "eCPF" ? 'selected' : ''); ?>>eCPF</option>
+      <option value="eCNPJ" <?php echo ($tipo->midia == "eCNPJ" ? 'selected' : ''); ?>>eCNPJ</option>
+    </select>
+    <div id="response2" class="mt-2"></div>
   </div>
-</div>
 
-<div class="row">
-  <div class="form-group col-lg-3">
+  <div class="form-group col-lg-3 col-md-6 col-sm-12">
     <label for="preco_custo" class="form-label mt-2">Preço custo</label>
-    <input type="text" class="form-control money" id="preco_custo" name="preco_custo" value="<?php echo esc($tipo->preco_custo); ?>">
+    <input type="text" class="form-control form-control-sm money" id="preco_custo" name="preco_custo" value="<?php echo esc($tipo->preco_custo); ?>">
   </div>
-  <div class="form-group col-lg-3">
+
+  <div class="form-group col-lg-3 col-md-6 col-sm-12">
     <label for="preco_venda" class="form-label mt-2">Preço venda</label>
-    <input type="text" class="form-control money" id="preco_venda" name="preco_venda" value="<?php echo esc($tipo->preco_venda); ?>">
+    <input type="text" class="form-control form-control-sm money" id="preco_venda" name="preco_venda" value="<?php echo esc($tipo->preco_venda); ?>">
   </div>
 </div>

@@ -5,12 +5,8 @@
 <section>
   <div class="jumbotron mt-5">
     <div id="response" class="col-8"></div>
-    <div class="card-header bg-light">
-      <p class="text-primary">Consulta vencimentos entre datas</p>
-    </div>
-    <div class="card-body">
-
-    </div>
+    <p class="text-primary">Exibir perfil do usuário logado ao sistema...</p>
+  </div>
   </div>
 </section>
 

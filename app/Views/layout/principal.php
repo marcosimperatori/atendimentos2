@@ -35,6 +35,8 @@
               <a class="dropdown-item" href="<?= base_url('escritorios'); ?>">Escritórios</a>
               <a class="dropdown-item" href="<?= base_url('tipos'); ?>">Tipos de Certificado</a>
               <a class="dropdown-item" href="<?= base_url('despesas'); ?>">Despesas</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="<?= base_url('parametros'); ?>">Parâmetros</a>
             </div>
           </li>
           <li class="nav-item">
@@ -47,7 +49,7 @@
         <form class="form-inline my-2 my-lg-0">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <div class="nav-link"><i class="fas fa-user"></i> &nbsp; <?php echo session()->get('user')->nome; ?></div>
+              <a href="<?= base_url('perfil'); ?>" class="nav-link"><i class="fas fa-user"></i> &nbsp; <?php echo session()->get('user')->nome; ?></a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-warning" href="<?= base_url('logout'); ?>"><i class="fas fa-sign-out-alt"></i>&nbsp; Sair</a>

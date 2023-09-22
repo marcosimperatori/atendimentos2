@@ -15,7 +15,13 @@
     <label for="email" class="form-label mt-2">Email</label>
     <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" value="<?php echo esc($escritorio->email); ?>" placeholder="Digite o email do cliente">
   </div>
+</div>
 
+<div class="row">
+  <div class="col-lg-3">
+    <label for="comissao" class="form-label mt-2">Comissão (%)</label>
+    <input type="text" class="form-control money" id="comissao" name="comissao" value="<?php echo esc($escritorio->comissao); ?>">
+  </div>
 </div>
 <div class="custom-control custom-checkbox">
   <div class="form-check mt-2 d-flex justify-content-end">
@@ -24,8 +30,9 @@
     <label for="ativo" class="custom-control-label">&nbsp;Cliente ativo</label>
   </div>
 </div>
+
 <div class="row">
-  <div class="form-group col-lg-12">
+  <div class="form-group mt-2 col-lg-12">
     <label for="obs" class="form-label mt-2">Observações do cliente</label>
     <textarea id="obs" name="obs" cols="30" rows="5" placeholder="Insira as observações da empresa" class="form-control"><?php echo esc($escritorio->obs); ?></textarea>
 

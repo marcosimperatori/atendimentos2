@@ -51,6 +51,12 @@ class TipoController extends BaseController
         //Criando um novo objeto da entidade cliente
         $tipo = new \App\Entities\TipoEntity($post);
 
+        if ($tipo->descricao === "A1") {
+            $tipo->validade = 1;
+        } else {
+            $tipo->validade = 3;
+        }
+
         if ($this->tipoModel->protect(false)->save($tipo)) {
 
             //captura o id do cliente que acabou de ser inserido no banco de dados
@@ -99,6 +105,12 @@ class TipoController extends BaseController
         if ($tipo->hasChanged() == false) {
             $retorno['info'] = "Não houve alteração no registro!";
             return $this->response->setJSON($retorno);
+        }
+
+        if ($tipo->descricao === "A1") {
+            $tipo->validade = 1;
+        } else {
+            $tipo->validade = 3;
         }
 
         if ($this->tipoModel->protect(false)->save($tipo)) {

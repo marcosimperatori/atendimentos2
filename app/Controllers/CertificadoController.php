@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\CertificadoModel;
 use App\Models\ClienteModel;
+use App\Models\EscritorioModel;
 use App\Models\TipoModel;
 
 class CertificadoController extends BaseController
@@ -12,12 +13,14 @@ class CertificadoController extends BaseController
     private $clienteModel;
     private $tipoModel;
     private $certificadoModel;
+    private $escritorioModel;
 
     public function __construct()
     {
         $this->clienteModel = new ClienteModel();
         $this->tipoModel = new TipoModel();
         $this->certificadoModel = new CertificadoModel();
+        $this->escritorioModel = new EscritorioModel();
     }
 
     public function index()
@@ -57,7 +60,14 @@ class CertificadoController extends BaseController
         //Criando um novo objeto da entidade cliente
         $certificado = new \App\Entities\CertificadoEntity($post);
         $certificado->ativo = 1;
-        $certificado->comissao_esc = 1.38;
+
+        $escritorio = $this->escritorioModel->select('escritorios.comissao')
+            ->join('clientes', 'clientes.escritorio = escritorios.id')
+            ->where('clientes.id', $certificado->idcliente)->first();
+
+        $percentual_comissao = $escritorio->comissao;
+
+        $certificado->comissao_esc = ($certificado->preco_venda * $percentual_comissao / 100);
 
         if ($this->certificadoModel->protect(false)->save($certificado)) {
 
@@ -106,7 +116,17 @@ class CertificadoController extends BaseController
         $retorno['token'] = csrf_hash();
         $post = $this->request->getPost();
         $certificado = $this->buscaCertificadoOu404($post['id']);
+
+        $escritorio = $this->escritorioModel->select('escritorios.comissao')
+            ->join('clientes', 'clientes.escritorio = escritorios.id')
+            ->where('clientes.id', $certificado->idcliente)->first();
+
+        $percentual_comissao = $escritorio->comissao;
         $certificado->fill($post);
+
+        $venda = (floatval($certificado->preco_venda) * $percentual_comissao / 100);
+
+        $certificado->comissao_esc = $venda; //number_format($venda, 2, ',', '.');
 
         if ($certificado->hasChanged() == false) {
             $retorno['info'] = "Não houve alteração no registro!";
