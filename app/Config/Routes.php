@@ -73,6 +73,7 @@ $routes->post('tipos/atualizar', 'TipoController::atualizar');
 $routes->get('atendimentos', 'AtendeController::index');
 
 $routes->get('perfil', 'PerfilController::index');
+$routes->post('resetar-senha', 'PerfilController::resetar');
 
 $routes->get('logout', 'LoginController::logout');
 $routes->post('logar', 'LoginController::logar');

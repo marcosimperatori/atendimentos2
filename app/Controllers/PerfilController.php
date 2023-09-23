@@ -23,4 +23,18 @@ class PerfilController extends BaseController
 
         return view('perfil/index', $data);
     }
+
+    public function resetar()
+    {
+        $novaSenha = $this->request->getPost('senha');
+        $usuario = $this->user->find(session()->get('user')->id);
+
+        $novaSenha = password_hash($novaSenha, PASSWORD_DEFAULT);
+
+        $usuario->senha = $novaSenha;
+
+        if ($this->user->protect(false)->save($usuario)) {
+            return view('home/index');
+        }
+    }
 }

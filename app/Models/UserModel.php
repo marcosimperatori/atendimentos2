@@ -16,20 +16,20 @@ class UserModel extends Model
     protected $allowedFields    = ['nome', 'email', 'senha'];
 
     // Dates
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
+    // protected $createdField  = 'created_at';
+    // protected $updatedField  = 'updated_at';
+    // protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [
+    /*  protected $validationRules      = [
         'nomecli'      => 'required|min_length[3]|max_length[250]|is_unique[clientes.nomecli,id,{$id}]',
         'cnpj'       => 'exact_length[18]|is_unique[escritorios.cnpj,id,{$id}]',
         'emailcli'      => 'permit_empty|is_unique[escritorios.emailcli,id,{$id}]',
-    ];
+    ];*/
 
-    protected $validationMessages   = [
+    /* protected $validationMessages   = [
         'nomecli' => [
             'required'   => 'A razão social é obrigatória.',
             'min_length' => 'A razão social precisa ter ao menos 03 caracteres.',
@@ -43,7 +43,7 @@ class UserModel extends Model
         'emailcli' => [
             'is_unique' => 'Este email já está sendo utilizado'
         ],
-    ];
+    ];*/
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
