@@ -7,6 +7,8 @@ use App\Models\CertificadoModel;
 use App\Models\ClienteModel;
 use App\Models\EscritorioModel;
 use App\Models\TipoModel;
+use DateInterval;
+use DateTime;
 
 class CertificadoController extends BaseController
 {
@@ -232,6 +234,20 @@ class CertificadoController extends BaseController
         ];
 
         return $this->response->setJSON($retorno);
+    }
+
+
+    public function getCertificadosARenovar()
+    {
+        $dataAtual = new DateTime();
+        $dataAtual->add(new DateInterval('P30D'));
+        $dataFormatada = $dataAtual->format('Y-m-d');
+
+        $consulta = $this->certificadoModel->select('*')
+            ->where('validade <=', $dataFormatada)
+            ->orderBy('validade', 'asc')->findAll();
+        dd($consulta);
+        return $consulta;
     }
 
     private function buscaCertificadoOu404(int $id = null)

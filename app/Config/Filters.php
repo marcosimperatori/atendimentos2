@@ -68,6 +68,9 @@ class Filters extends BaseConfig
                 'clientes(/*)?',
                 'escritorios(/*)?',
                 'atendimentos(/*)?',
+                'certificados(/*)?',
+                'perfil(/*)?',
+                'despesas(/*)?',
             ]
         ]
     ];
