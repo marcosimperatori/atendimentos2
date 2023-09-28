@@ -32,6 +32,9 @@ $routes->set404Override();
 $routes->get('/', 'LoginController::index');
 
 $routes->get('home', 'Home::index');
+$routes->get('home/clientes', 'Home::getResumoClientes');
+$routes->get('home/escritorios', 'Home::getResumoEscritorios');
+$routes->get('home/certificados', 'Home::getResumoCertificados');
 
 
 $routes->get('clientes', 'ClienteController::index');
@@ -60,6 +63,7 @@ $routes->get('certificados/editar/(:alphanum)', 'CertificadoController::edit/$1'
 $routes->post('certificados/atualizar', 'CertificadoController::atualizar');
 $routes->get('certificados/deletar/(:alphanum)', 'CertificadoController::deletar/$1');
 $routes->get('certificados/confirma_exclusao/(:alphanum)', 'CertificadoController::confirma_exclusao/$1');
+$routes->get('certificados/consulta', 'CertificadoController::consultar');
 
 $routes->get('tipos', 'TipoController::index');
 $routes->get('tipos-all', 'TipoController::getAll');

@@ -20,16 +20,15 @@ class Home extends BaseController
         $this->escritorioModel = new EscritorioModel();
     }
 
-
-
     public function index(): string
     {
         $currentDate = new \DateTime();
 
         $vencimentos = $this->certificadoModel->select('*')
             ->join('clientes', 'clientes.id = certificados.idcliente')
+            ->join('escritorios', 'escritorios.id = clientes.escritorio')
             ->where('validade <=', $currentDate->format('Y-m-d'))
-            ->orderBy('certificados.validade', 'desc')->orderBy('clientes.nomecli')
+            ->orderBy('certificados.validade', 'asc')->orderBy('clientes.nomecli')
             ->findAll();
 
         $data = [
@@ -39,11 +38,88 @@ class Home extends BaseController
         return view('home/index', $data);
     }
 
-    private function getClientes()
+    public function getResumoClientes()
     {
-        $escritorios = [];
+        if (!$this->request->isAJAX()) {
+            $retorno['resultado'] = 'Sem permissão de acesso!';
+            return $this->response->setJSON($retorno);
+        }
 
-        $ativos   = $this->escritorioModel->selectCount('id')->where('ativo', '1');
-        $inativos = $this->escritorioModel->selectCount('id')->where('ativo', '0');
+        $lista = $this->clienteModel->select('(select count(id) from clientes c where c.ativo=1) as ativos')
+            ->select('(select count(id) from clientes c where c.ativo=0) as inativos')->findAll();
+
+        if (!empty($lista)) {
+            $data = [
+                'ativos' => $lista[0]->ativos,
+                'inativos' => $lista[0]->inativos
+            ];
+        } else {
+            $data = [
+                'ativos' => 0,
+                'inativos' => 0
+            ];
+        }
+
+        return $this->response->setJSON($data);
+    }
+
+    public function getResumoEscritorios()
+    {
+        if (!$this->request->isAJAX()) {
+            $retorno['resultado'] = 'Sem permissão de acesso!';
+            return $this->response->setJSON($retorno);
+        }
+
+        $lista = $this->escritorioModel->select('(select count(id) from escritorios c where c.ativo=1) as ativos')
+            ->select('(select count(id) from escritorios c where c.ativo=0) as inativos')->findAll();
+
+        if (!empty($lista)) {
+            $data = [
+                'ativos' => $lista[0]->ativos,
+                'inativos' => $lista[0]->inativos
+            ];
+        } else {
+            $data = [
+                'ativos' => 0,
+                'inativos' => 0
+            ];
+        }
+
+        return $this->response->setJSON($data);
+    }
+
+    public function getResumoCertificados()
+    {
+        if (!$this->request->isAJAX()) {
+            $retorno['resultado'] = 'Sem permissão de acesso!';
+            return $this->response->setJSON($retorno);
+        }
+
+        $currentDate = new \DateTime();
+        $dataProjetada = clone $currentDate;
+        $dataProjetada->modify('+30 days');
+
+        $lista = $this->certificadoModel
+            ->select("(SELECT COUNT(id) FROM certificados c WHERE c.validade < '" . $currentDate->format('Y-m-d') . "') AS vencidos")
+            ->select("(SELECT COUNT(id) FROM certificados c WHERE c.validade > '" . $currentDate->format('Y-m-d') . "') AS vigentes")
+            ->select("(SELECT COUNT(id) FROM certificados c WHERE c.validade >= '" . $currentDate->format('Y-m-d') . "' AND c.validade <='" . $dataProjetada->format('Y-m-d') . "') AS renovar")
+            ->findAll();
+
+
+        if (!empty($lista)) {
+            $data = [
+                'vencidos' => $lista[0]->vencidos,
+                'vigentes' => $lista[0]->vigentes,
+                'renovar' => $lista[0]->renovar,
+            ];
+        } else {
+            $data = [
+                'vencidos' => 0,
+                'vigentes' => 0,
+                'renovar' => 0
+            ];
+        }
+
+        return $this->response->setJSON($data);
     }
 }

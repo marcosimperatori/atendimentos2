@@ -236,7 +236,6 @@ class CertificadoController extends BaseController
         return $this->response->setJSON($retorno);
     }
 
-
     public function getCertificadosARenovar()
     {
         $dataAtual = new DateTime();
@@ -248,6 +247,19 @@ class CertificadoController extends BaseController
             ->orderBy('validade', 'asc')->findAll();
         dd($consulta);
         return $consulta;
+    }
+
+    public function consultar()
+    {
+        $clientes = $this->clienteModel->select('id,nomecli')->orderBy('nomecli', 'asc')->findAll();
+        $escritorios = $this->escritorioModel->select('id,nome')->orderBy('nome', 'asc')->findAll();
+
+        $data = [
+            'escritorios' => $escritorios,
+            'clientes' => $clientes,
+        ];
+
+        return view('certificado/consulta', $data);
     }
 
     private function buscaCertificadoOu404(int $id = null)
