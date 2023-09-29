@@ -262,6 +262,83 @@ class CertificadoController extends BaseController
         return view('certificado/consulta', $data);
     }
 
+    public function buscaAvancada()
+    {
+        if (!$this->request->isAJAX()) {
+            $retorno['resultado'] = 'Sem permissão de acesso!';
+            return $this->response->setJSON($retorno);
+        }
+
+        $dados = $this->request->getGet();
+
+
+        $mpdf = new \Mpdf\Mpdf();
+
+        $escritorio = $dados['escritorio'];
+        $inicio = $dados['inicio'];
+        $final = $dados['final'];
+        $atributos = [
+            'certificados.id', 'clientes.nomecli', 'certificados.ativo',
+            'certificados.validade', 'certificados.emissao_em', 'escritorios.nome', 'tipos.descricao', 'tipos.midia'
+        ];
+
+        $certificados = $this->certificadoModel->select($atributos)
+            ->join('clientes', 'clientes.id = certificados.idcliente')
+            ->join('tipos', 'tipos.id = certificados.idtipo')
+            ->join('escritorios', 'escritorios.id = clientes.escritorio')
+            ->where('escritorios.id', $escritorio)
+            ->where('certificados.validade >=', $inicio)
+            ->where('certificados.validade <=', $final)
+            ->orderBy('emissao_em', 'desc')
+            ->orderBy('nomecli', 'asc')->findAll();
+
+        $data = [];
+
+        foreach ($certificados as $certificado) {
+            $data[] = [
+                'nome'       => $certificado->nomecli,
+                'validade'   => date('d/m/Y', strtotime($certificado->validade)),
+            ];
+        }
+
+        $retorno = [
+            'data' => $data
+        ];
+
+        return $this->response->setJSON($retorno);
+    }
+
+    public function gerarPdf()
+    {
+        $atributos = [
+            'certificados.id', 'clientes.nomecli', 'certificados.ativo',
+            'certificados.validade', 'certificados.emissao_em', 'escritorios.nome', 'tipos.descricao', 'tipos.midia'
+        ];
+
+        $certificados = $this->certificadoModel->select($atributos)
+            ->join('clientes', 'clientes.id = certificados.idcliente')
+            ->join('tipos', 'tipos.id = certificados.idtipo')
+            ->join('escritorios', 'escritorios.id = clientes.escritorio')
+            ->where('escritorios.id', 21)
+            ->orderBy('emissao_em', 'desc')
+            ->orderBy('nomecli', 'asc')->findAll();
+
+        $data = [];
+        $mpdf = new \Mpdf\Mpdf();
+        $html = '';
+
+        foreach ($certificados as $certificado) {
+            $html .= "<p>" . $certificado->nomecli . "</p>"; //view('html_to_pdf', []);
+
+        }
+        $mpdf->SetHeader('Meu PDF - ' . MY_APP);
+        $mpdf->WriteHTML($html);
+        $this->response->setHeader('Content-Type', 'application/pdf');
+        $mpdf->Output('relatorio_vectos.pdf', 'I'); // opens in browser
+        //$mpdf->Output('arjun.pdf','D'); // it downloads the file into the user system, with give name
+        //return view('welcome_message');
+    }
+
     private function buscaCertificadoOu404(int $id = null)
     {
         //vai considerar inclusive os registros excluídos (softdelete)

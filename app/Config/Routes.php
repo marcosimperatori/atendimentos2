@@ -64,6 +64,8 @@ $routes->post('certificados/atualizar', 'CertificadoController::atualizar');
 $routes->get('certificados/deletar/(:alphanum)', 'CertificadoController::deletar/$1');
 $routes->get('certificados/confirma_exclusao/(:alphanum)', 'CertificadoController::confirma_exclusao/$1');
 $routes->get('certificados/consulta', 'CertificadoController::consultar');
+$routes->get('certificados/buscar', 'CertificadoController::buscaAvancada');
+$routes->get('certificados/pdf', 'CertificadoController::gerarPdf');
 
 $routes->get('tipos', 'TipoController::index');
 $routes->get('tipos-all', 'TipoController::getAll');

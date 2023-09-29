@@ -42,7 +42,7 @@
           <div class="d-flex justify-content-between align-items-center">
             <h2 class="mb-0">
               <button class="btn btn-link btn-block text-left text-danger" type="button" data-toggle="collapse" data-target="#vectos" aria-expanded="true" aria-controls="collapseOne">
-                <i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Certificados vencidos (<?php echo count($vencimentos); ?>)
+                <i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Certificados vencidos e próximos de vencer (<?php echo count($vencimentos); ?>)
               </button>
             </h2>
             <a href="<?php echo base_url('certificados/consulta'); ?>">Consulta avançada</a>

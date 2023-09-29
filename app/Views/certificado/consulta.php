@@ -10,22 +10,11 @@
 </div>
 
 <section>
-  <div class="jumbotron mt-3">
+  <div id="print" class="jumbotron mt-3">
     <div id="response" class="col-8"></div>
     <h6>Pesquisar</h6>
     <div class="row">
-      <div class="col-lg-4">
-        <label for="cliente" class="form-label mt-2">Selecione o cliente</label>
-        <select name="escritorio" id="escritorio" class="form-control">
-          <option value="" selected>Selecione...</option>
-          <?php foreach ($clientes as $cliente) : ?>
-            <option value="<?php echo $cliente->id; ?>">
-              <?php echo $cliente->nomecli; ?></option>
-          <?php endforeach; ?>
-        </select>
-      </div>
-
-      <div class="col-lg-4">
+      <div class="col-lg-6">
         <label for="escritorio" class="form-label mt-2">Selecione o escritório</label>
         <select name="escritorio" id="escritorio" class="form-control">
           <option value="" selected>Selecione...</option>
@@ -45,7 +34,14 @@
         <label for="validade" class="form-label mt-2">Final</label>
         <input type="date" class="form-control" id="final" name="final">
       </div>
+
+      <div class="form-group col-lg-2">
+        <label class="d-none d-lg-block mt-2">&nbsp;</label> <!-- Rótulo vazio para espaçamento -->
+        <button id="pavancada" class="btn btn-primary btn-sm">Pesquisar</button>
+      </div>
     </div>
+
+    <hr>
 
   </div>
 </section>
@@ -54,5 +50,7 @@
 <?php $this->endSection(); ?>
 
 <?php echo $this->section('scripts'); ?>
+
 <script src="<?php echo base_url("assets/js/certificados.js") ?>"></script>
+
 <?php echo $this->endSection(); ?>

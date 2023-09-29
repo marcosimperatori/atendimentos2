@@ -186,18 +186,80 @@ $("#emissao_em").change(function () {
   calcularValidade(this);
 });
 
-/*
-$("#buscarButton").on("click", function () {
-  var cnpj = $("#cnpjInput").val();
-  if (cnpj) {
-    // Faz a chamada à API usando o $.get()
-    $.get("https://brasilapi.com.br/api/cnpj/v1/" + cnpj, function (data) {
-      // Preenche os campos na tela com os dados da API
-      $("#nomeEmpresa").val(data.nome);
-      $("#enderecoEmpresa").val(data.endereco);
+$("#escritorio").change(function () {
+  /*var selectedValue = $(this).val();
+
+  if (selectedValue !== "") {
+    alert("Você selecionou o valor: " + selectedValue);
+  }*/
+});
+
+$("#final").change(function () {
+  /* var selectedDate = $(this).val();
+
+  if (selectedDate !== "") {
+    alert("Você selecionou a data: " + selectedDate);
+  }*/
+});
+
+$("#pavancada").click(function () {
+  if (
+    $("#escritorio").val() !== "" &&
+    $("#inicio").val() !== "" &&
+    $("#final").val() !== ""
+  ) {
+    var dados = {
+      escritorio: $("#escritorio").val(),
+      inicio: $("#inicio").val(),
+      final: $("#final").val(),
+    };
+
+    $.ajax({
+      url: "/certificados/buscar",
+      dataType: "json",
+      cache: false,
+      data: dados,
+      beforeSend: function () {
+        $("#print").LoadingOverlay("show", {
+          background: "rgba(165, 190, 100, 0.5)",
+        });
+      },
+      success: function (data) {
+        var tabelaContainer = $("#tabela-container");
+
+        // Cria a tabela HTML
+        var tabela = $("<table>").addClass("table"); // Você pode adicionar classes CSS aqui se desejar
+        var cabecalho = $("<thead>").appendTo(tabela);
+        var corpoTabela = $("<tbody>").appendTo(tabela);
+
+        // Cria a linha de cabeçalho da tabela
+        var cabecalhoRow = $("<tr>").appendTo(cabecalho);
+        cabecalhoRow.append($("<th>").text("Nome"));
+        cabecalhoRow.append($("<th>").text("Validade"));
+
+        // Preenche a tabela com os dados do JSON
+        jsonData.data.forEach(function (item) {
+          var linha = $("<tr>").appendTo(corpoTabela);
+          linha.append($("<td>").text(item.nome));
+          linha.append($("<td>").text(item.validade));
+        });
+
+        // Adiciona a tabela ao elemento contêiner
+        tabelaContainer.append("#tabvectos");
+      },
+      error: function () {
+        console.log("Erro na requisição:");
+      },
+      complete: function () {
+        $("#print").LoadingOverlay("hide");
+      },
     });
+  } else {
+    alert(
+      "Por favor, selecione um escritório e preencha as datas de início e fim."
+    );
   }
-});*/
+});
 
 $("#uf").change(function () {
   var selectedUF = $("#uf").val();

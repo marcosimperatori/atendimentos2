@@ -23,6 +23,7 @@ class Home extends BaseController
     public function index(): string
     {
         $currentDate = new \DateTime();
+        $currentDate->modify('+30 days');
 
         $vencimentos = $this->certificadoModel->select('*')
             ->join('clientes', 'clientes.id = certificados.idcliente')
@@ -110,13 +111,13 @@ class Home extends BaseController
             $data = [
                 'vencidos' => $lista[0]->vencidos,
                 'vigentes' => $lista[0]->vigentes,
-                'renovar' => $lista[0]->renovar,
+                'renovar'  => $lista[0]->renovar,
             ];
         } else {
             $data = [
                 'vencidos' => 0,
                 'vigentes' => 0,
-                'renovar' => 0
+                'renovar'  => 0,
             ];
         }
 
