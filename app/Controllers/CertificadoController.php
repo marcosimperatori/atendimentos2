@@ -9,6 +9,7 @@ use App\Models\EscritorioModel;
 use App\Models\TipoModel;
 use DateInterval;
 use DateTime;
+use Doctrine\Common\Annotations\Annotation\Target;
 
 class CertificadoController extends BaseController
 {
@@ -269,10 +270,10 @@ class CertificadoController extends BaseController
             return $this->response->setJSON($retorno);
         }
 
-        $dados = $this->request->getGet();
+        //atualiza o token do formulário
+        $retorno['token'] = csrf_hash();
 
-
-        $mpdf = new \Mpdf\Mpdf();
+        $dados = $this->request->getPost();
 
         $escritorio = $dados['escritorio'];
         $inicio = $dados['inicio'];
@@ -292,21 +293,43 @@ class CertificadoController extends BaseController
             ->orderBy('emissao_em', 'desc')
             ->orderBy('nomecli', 'asc')->findAll();
 
-        $data = [];
+        if (!empty($certificados)) {
+            $mpdf = new \Mpdf\Mpdf();
+            $html = '';
 
-        foreach ($certificados as $certificado) {
-            $data[] = [
-                'nome'       => $certificado->nomecli,
-                'validade'   => date('d/m/Y', strtotime($certificado->validade)),
-            ];
+            foreach ($certificados as $certificado) {
+                $html .= "<p>" . $certificado->nomecli . " (válido até: " . $certificado->validade . ")" . "</p>";
+            }
+
+            $mpdf->SetHeader('PDF Teste - ' . MY_APP);
+            $mpdf->WriteHTML($html);
+
+            $pdfPath = str_replace('\\', '/', WRITEPATH . 'temp/relatorio_vectos.pdf');
+            $mpdf->Output($pdfPath, \Mpdf\Output\Destination::FILE);
+
+            $retorno['redirect_url'] = "<a href=\"" . base_url('certificados/pdf/' . base64_encode($pdfPath)) . "\" target=\"_blank\">Clique aqui para ver seu relatório</a>";
+            return $this->response->setJSON($retorno);
         }
 
-        $retorno = [
-            'data' => $data
-        ];
-
+        $retorno['info'] = "Não foi possível localizar registros com o filtro informado!";
         return $this->response->setJSON($retorno);
     }
+
+    public function exibirPDF($pdfPath)
+    {
+        $pdfPath = base64_decode($pdfPath);
+
+        if (file_exists($pdfPath)) {
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: inline; filename="relatorio_vectos.pdf"');
+            header('Content-Length: ' . filesize($pdfPath));
+            readfile($pdfPath);
+            unlink($pdfPath);
+        } else {
+            echo 'O arquivo PDF não foi encontrado.';
+        }
+    }
+
 
     public function gerarPdf()
     {

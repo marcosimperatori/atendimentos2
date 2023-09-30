@@ -32,8 +32,12 @@ class Home extends BaseController
             ->orderBy('certificados.validade', 'asc')->orderBy('clientes.nomecli')
             ->findAll();
 
+        $escritorios = $this->escritorioModel->select('id,nome')->orderBy('nome', 'asc')->findAll();
+
+
         $data = [
             'vencimentos' => $vencimentos,
+            'escritorios' => $escritorios,
         ];
 
         return view('home/index', $data);

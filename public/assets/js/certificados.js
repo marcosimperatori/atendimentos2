@@ -202,56 +202,68 @@ $("#final").change(function () {
   }*/
 });
 
-$("#pavancada").click(function () {
+$("#form_pesquisa").on("submit", function (e) {
+  e.preventDefault();
+
   if (
     $("#escritorio").val() !== "" &&
     $("#inicio").val() !== "" &&
     $("#final").val() !== ""
   ) {
-    var dados = {
+    /*var dados = {
       escritorio: $("#escritorio").val(),
       inicio: $("#inicio").val(),
       final: $("#final").val(),
-    };
+    };*/
 
     $.ajax({
+      type: "POST",
       url: "/certificados/buscar",
       dataType: "json",
+      contentType: false,
       cache: false,
-      data: dados,
+      processData: false,
+      data: new FormData(this),
       beforeSend: function () {
-        $("#print").LoadingOverlay("show", {
+        $("#resp-consulta").html("");
+        $("#consulta").LoadingOverlay("show", {
           background: "rgba(165, 190, 100, 0.5)",
         });
       },
       success: function (data) {
-        var tabelaContainer = $("#tabela-container");
+        $("[name=csrf_test_name]").val(data.token);
 
-        // Cria a tabela HTML
-        var tabela = $("<table>").addClass("table"); // Você pode adicionar classes CSS aqui se desejar
-        var cabecalho = $("<thead>").appendTo(tabela);
-        var corpoTabela = $("<tbody>").appendTo(tabela);
+        if (data.info) {
+          $("#response").html(
+            '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+              data.info +
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+              '<span aria-hidden="true">&times;</span>' +
+              "</button>" +
+              "</div>"
+          );
+        }
 
-        // Cria a linha de cabeçalho da tabela
-        var cabecalhoRow = $("<tr>").appendTo(cabecalho);
-        cabecalhoRow.append($("<th>").text("Nome"));
-        cabecalhoRow.append($("<th>").text("Validade"));
-
-        // Preenche a tabela com os dados do JSON
-        jsonData.data.forEach(function (item) {
-          var linha = $("<tr>").appendTo(corpoTabela);
-          linha.append($("<td>").text(item.nome));
-          linha.append($("<td>").text(item.validade));
-        });
-
-        // Adiciona a tabela ao elemento contêiner
-        tabelaContainer.append("#tabvectos");
+        if (data.redirect_url) {
+          $("#response").html(
+            '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+              data.redirect_url +
+              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+              '<span aria-hidden="true">&times;</span>' +
+              "</button>" +
+              "</div>"
+          );
+        }
       },
       error: function () {
         console.log("Erro na requisição:");
       },
       complete: function () {
-        $("#print").LoadingOverlay("hide");
+        $("#consulta").LoadingOverlay("hide");
+        $("#resp-consulta").html("");
+        /* $("#escritorio").html("");
+        $("#inicio").html("");
+        $("#final").html("");*/
       },
     });
   } else {
