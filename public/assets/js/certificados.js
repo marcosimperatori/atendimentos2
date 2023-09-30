@@ -226,6 +226,7 @@ $("#form_pesquisa").on("submit", function (e) {
       data: new FormData(this),
       beforeSend: function () {
         $("#resp-consulta").html("");
+        $("#resultado").html("");
         $("#consulta").LoadingOverlay("show", {
           background: "rgba(165, 190, 100, 0.5)",
         });
@@ -254,6 +255,55 @@ $("#form_pesquisa").on("submit", function (e) {
               "</div>"
           );
         }
+
+        if (data.data) {
+          const items = [];
+
+          data.data.forEach((item) => {
+            const div = $('<div class="item">');
+            div.append(
+              $("<h6>").text(
+                "Vecto: " +
+                  item.validade +
+                  " - " +
+                  item.tipo +
+                  " - " +
+                  item.nome
+              )
+            );
+            items.push(div);
+          });
+
+          const div = $('<div class="container">');
+          div.append(items);
+
+          const link = $('<a href="#">Limpar&nbsp;</a>');
+          link.css("float", "right");
+          //const linkGerarPDF = $('<button id="gerarPDF">Gerar PDF</button>');
+          // linkGerarPDF.css("float", "right");
+
+          div.prepend(link);
+          //div.prepend(linkGerarPDF);
+
+          link.on("click", () => {
+            div.empty();
+          });
+
+          $("#resultado").append(div);
+
+          /*  linkGerarPDF.on("click", () => {
+            const divResultado = document.getElementById("resultado");
+
+            const pdf = new jsPDF("p", "mm", "a4");
+            pdf.addHTML(divResultado, () => {
+              const nomeDoArquivo = "meu_relatorio.pdf";
+              // Abrir o PDF em uma nova página
+              const blob = pdf.output("blob");
+              const url = URL.createObjectURL(blob);
+              window.open(url, "_blank");
+            });
+          });*/
+        }
       },
       error: function () {
         console.log("Erro na requisição:");
@@ -271,6 +321,18 @@ $("#form_pesquisa").on("submit", function (e) {
       "Por favor, selecione um escritório e preencha as datas de início e fim."
     );
   }
+});
+
+$("#gerarPDF2").on("click", () => {
+  const divResultado = document.getElementById("resultado");
+
+  const pdf = new jsPDF();
+  pdf.addHTML(divResultado, () => {
+    // Abrir o PDF em uma nova página
+    const blob = pdf.output("blob");
+    const url = URL.createObjectURL(blob);
+    window.open(url);
+  });
 });
 
 $("#uf").change(function () {

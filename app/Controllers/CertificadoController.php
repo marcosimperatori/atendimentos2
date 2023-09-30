@@ -278,6 +278,7 @@ class CertificadoController extends BaseController
         $escritorio = $dados['escritorio'];
         $inicio = $dados['inicio'];
         $final = $dados['final'];
+        $data = [];
 
         $atributos = [
             'certificados.id', 'clientes.nomecli', 'certificados.ativo',
@@ -300,14 +301,21 @@ class CertificadoController extends BaseController
 
             foreach ($certificados as $certificado) {
                 $html .= "<p>" . $certificado->nomecli . " (válido até: " . $certificado->validade . ")" . "</p>";
+                $data[] = [
+                    'nome' => $certificado->nomecli,
+                    'tipo'    => $certificado->descricao,
+                    'validade' => date('d/m/Y', strtotime($certificado->validade)),
+                ];
             }
-
-            $mpdf->SetHeader('PDF Teste - ' . MY_APP);
+            $date = new DateTime();
+            $time = $date->format('d/m/Y H:i:s');
+            $mpdf->SetHeader('PDF Teste - ' . MY_APP . ' - Gerado em ' . $time);
             $mpdf->WriteHTML($html);
 
             $pdfPath = str_replace('\\', '/', WRITEPATH . 'temp/vecimentos.pdf');
             $mpdf->Output($pdfPath, \Mpdf\Output\Destination::FILE);
 
+            $retorno['data'] = $data;
             $retorno['redirect_url'] = "<a href=\"" . base_url('certificados/pdf/' . base64_encode($pdfPath)) . "\" target=\"_blank\">Clique aqui para ver seu relatório</a>";
             return $this->response->setJSON($retorno);
         }

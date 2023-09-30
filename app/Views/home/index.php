@@ -2,6 +2,8 @@
 
 <?php echo $this->section('conteudo'); ?>
 
+
+
 <section>
   <div class="jumbotron mt-3">
 
@@ -77,7 +79,9 @@
                 </div>
               </div>
               <?php form_close(); ?>
+              <div id="resultado" style="background-color: white;"></div>
               <div id="response"></div>
+
             </div>
           </div>
         </div>
@@ -131,6 +135,11 @@
 <?php $this->endSection(); ?>
 
 <?php echo $this->section('scripts'); ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<!-- Inclua o CDN da biblioteca html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+
+
 <script src="<?php echo site_url("assets/js/home.js"); ?>"> </script>
 <script src="<?php echo base_url("assets/js/certificados.js") ?>"></script>
 <script>
