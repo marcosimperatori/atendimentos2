@@ -278,6 +278,7 @@ class CertificadoController extends BaseController
         $escritorio = $dados['escritorio'];
         $inicio = $dados['inicio'];
         $final = $dados['final'];
+
         $atributos = [
             'certificados.id', 'clientes.nomecli', 'certificados.ativo',
             'certificados.validade', 'certificados.emissao_em', 'escritorios.nome', 'tipos.descricao', 'tipos.midia'
@@ -304,7 +305,7 @@ class CertificadoController extends BaseController
             $mpdf->SetHeader('PDF Teste - ' . MY_APP);
             $mpdf->WriteHTML($html);
 
-            $pdfPath = str_replace('\\', '/', WRITEPATH . 'temp/relatorio_vectos.pdf');
+            $pdfPath = str_replace('\\', '/', WRITEPATH . 'temp/vecimentos.pdf');
             $mpdf->Output($pdfPath, \Mpdf\Output\Destination::FILE);
 
             $retorno['redirect_url'] = "<a href=\"" . base_url('certificados/pdf/' . base64_encode($pdfPath)) . "\" target=\"_blank\">Clique aqui para ver seu relatório</a>";
@@ -321,7 +322,7 @@ class CertificadoController extends BaseController
 
         if (file_exists($pdfPath)) {
             header('Content-Type: application/pdf');
-            header('Content-Disposition: inline; filename="relatorio_vectos.pdf"');
+            header('Content-Disposition:  attachment; filename="relatorio_vectos.pdf"');
             header('Content-Length: ' . filesize($pdfPath));
             readfile($pdfPath);
             unlink($pdfPath);
