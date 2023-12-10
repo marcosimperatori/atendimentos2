@@ -9,11 +9,11 @@
 
     <div class="mb-2">
       <div class="accordion" id="faturamento">
-        <div class="card">
+        <div class="card shadow">
           <div class="card-header" id="headingOne">
             <h2 class="mb-0">
               <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#fatura" aria-expanded="true" aria-controls="collapseOne">
-                <h6 class="text-primary"><i class="fas fa-chart-pie"></i>&nbsp;&nbsp;Resumo</h6>
+                <h6 class="text-primary"><i class="fas fa-chart-pie"></i>&nbsp;&nbsp;<strong>Resumo</strong></h6>
               </button>
             </h2>
           </div>
@@ -39,11 +39,11 @@
 
     <div class="mb-2">
       <div class="accordion" id="consulta">
-        <div class="card">
+        <div class="card shadow">
           <div class="card-header" id="headingOne">
             <h2 class="mb-0">
               <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#consultando" aria-expanded="true" aria-controls="collapseOne">
-                <h6 class="text-success"><i class="fas fa-filter"></i>&nbsp;&nbsp; Consulte vencimentos por escritório</h6>
+                <h6 class="text-success"><i class="fas fa-filter"></i>&nbsp;&nbsp; <strong>Consulte vencimentos por escritório</strong></h6>
               </button>
             </h2>
           </div>
@@ -89,10 +89,10 @@
     </div>
 
     <div class="accordion mb-2" id="vecto">
-      <div class="card">
+      <div class="card shadow">
         <div class="card-header" id="headingOne">
           <button class="btn btn-link btn-block text-left text-danger" type="button" data-toggle="collapse" data-target="#vectos" aria-expanded="true" aria-controls="collapseOne">
-            <h6 class="text-danger"><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;Certificados vencidos e próximos de vencer (<?php echo count($vencimentos); ?>)</h6>
+            <h6 class="text-danger"><i class="fas fa-calendar-alt"></i>&nbsp;&nbsp;<strong>Certificados vencidos e próximos de vencer (<?php echo count($vencimentos); ?>)</strong></h6>
           </button>
         </div>
         <div id="vectos" class="collapse show" aria-labelledby="headingOne" data-parent="#vecto">

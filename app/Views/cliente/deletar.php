@@ -11,7 +11,7 @@
     </ol>
   </div>
 
-  <div class="jumbotron">
+  <div class="jumbotron shadow">
     <p class="lead font-weight-bolder"><i class="fas fa-trash-alt text-danger"></i>&nbsp;Exclusão do registro:</p>
     <h3 class="font-weight-bolder text-danger"><?= $cliente->nomecli ?></h3>
     <hr class="my-4">

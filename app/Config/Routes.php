@@ -84,6 +84,8 @@ $routes->post('resetar-senha', 'PerfilController::resetar');
 $routes->get('logout', 'LoginController::logout');
 $routes->post('logar', 'LoginController::logar');
 
+$routes->get('admin', 'RootController::index');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

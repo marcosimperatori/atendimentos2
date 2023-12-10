@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class UserModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'usuario';
+    protected $table            = 'usuarios';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
@@ -16,10 +16,10 @@ class UserModel extends Model
     protected $allowedFields    = ['nome', 'email', 'senha'];
 
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
-    // protected $createdField  = 'created_at';
-    // protected $updatedField  = 'updated_at';
+    protected $createdField  = 'criado_em';
+    protected $updatedField  = 'atualizado_em';
     // protected $deletedField  = 'deleted_at';
 
     // Validation
@@ -49,7 +49,7 @@ class UserModel extends Model
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
+    protected $beforeInsert   = ['hashPassword'];
     protected $afterInsert    = [];
     protected $beforeUpdate   = [];
     protected $afterUpdate    = [];
@@ -57,4 +57,17 @@ class UserModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    protected function hashPassword($data)
+    {
+        if (isset($data['data']['senha'])) {
+            $data['data']['senha'] = password_hash($data['data']['senha'], PASSWORD_DEFAULT);
+
+            //removendo estas posições pois não existem no banco de dados
+            // unset($data['data']['password']);
+            // unset($data['data']['password_confirmation']);
+        }
+
+        return $data;
+    }
 }

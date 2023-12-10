@@ -19,7 +19,7 @@
         <div class="card-header bg-light">
           <h4 class="text-primary">Cadastro de cliente</h4>
         </div>
-        <div class="card-body">
+        <div class="card-body shadow">
 
           <?php echo form_open('/', ['id' => 'form_cad_cliente', 'class' => 'insert'], ['id' => "$cliente->id"]) ?>
 

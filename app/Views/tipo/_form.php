@@ -4,6 +4,7 @@
     <select name="descricao" class="form-control form-control-sm" id="descricao">
       <option value="A1" <?php echo ($tipo->descricao == "A1" ? 'selected' : ''); ?>>A1</option>
       <option value="A3" <?php echo ($tipo->descricao == "A3" ? 'selected' : ''); ?>>A3</option>
+      <option value="BirdId" <?php echo ($tipo->descricao == "BirdId" ? 'selected' : ''); ?>>BirdId</option>
     </select>
     <div id="response2" class="mt-2"></div>
   </div>
@@ -13,6 +14,7 @@
     <select name="midia" class="form-control form-control-sm" id="midia">
       <option value="eCPF" <?php echo ($tipo->midia == "eCPF" ? 'selected' : ''); ?>>eCPF</option>
       <option value="eCNPJ" <?php echo ($tipo->midia == "eCNPJ" ? 'selected' : ''); ?>>eCNPJ</option>
+      <option value="Nuvem" <?php echo ($tipo->midia == "Nuvem" ? 'selected' : ''); ?>>Nuvem</option>
     </select>
     <div id="response2" class="mt-2"></div>
   </div>

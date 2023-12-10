@@ -6,11 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= MY_APP ?></title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;700;800&display=swap" rel="stylesheet" />
+
+  <!--
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;700&display=swap" rel="stylesheet">-->
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+  <!-- <link rel="stylesheet" href="<?php echo base_url("assets/css/bootstrap.yeti.min.css") ?>"> -->
+
   <link rel="stylesheet" href="<?php echo base_url("assets/fontawesome/css/all.min.css") ?>">
 
   <link href="https://cdn.datatables.net/v/bs4/jq-3.7.0/dt-1.13.6/r-2.5.0/datatables.min.css" rel="stylesheet">
