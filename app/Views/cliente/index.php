@@ -21,7 +21,7 @@
     </div>
     <div class="card-body">
       <table id="lista-clientes" class="table responsive table-hover">
-        <thead class="table-dark text-white">
+        <thead class="table-primary">
           <tr>
             <th scope="col">Cliente</th>
             <th scope="col">Escritório</th>
@@ -37,6 +37,6 @@
 <?php $this->endSection(); ?>
 
 <?php echo $this->section('scripts'); ?>
-<script src="<?php echo base_url("assets/js/cliente.js") ?>"></script>
+<script src="<?php echo base_url("assets/js-old/cliente.js") ?>"></script>
 
 <?php echo $this->endSection(); ?>

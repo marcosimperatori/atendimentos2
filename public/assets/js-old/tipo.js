@@ -16,7 +16,16 @@ $("#lista-tipos").DataTable({
       data: "descricao",
     },
     {
-      data: "midia",
+      data: "validade",
+    },
+    {
+      data: "custo",
+    },
+    {
+      data: "venda",
+    },
+    {
+      data: "obs",
     },
     {
       data: "acoes",
@@ -33,20 +42,27 @@ $("#lista-tipos").DataTable({
   pageLength: 10,
   columnDefs: [
     {
-      width: "150px",
-      targets: [1],
+      width: "30px",
+      targets: [0],
     },
     {
       className: "text-center",
+      width: "40px",
       targets: [1],
     },
     {
-      width: "90px",
-      targets: [2],
+      className: "text-right",
+      width: "110px",
+      targets: [2, 3],
+    },
+    {
+      className: "text-left",
+      targets: [4],
     },
     {
       className: "text-center",
-      targets: [1],
+      width: "30px",
+      targets: [5],
     },
   ],
 });

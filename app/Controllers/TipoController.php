@@ -16,11 +16,11 @@ class TipoController extends BaseController
 
     public function index()
     {
-        $tipos = $this->tipoModel->select('id,descricao,midia')->orderBy('descricao', 'asc')->findAll();
+        $tipos = $this->tipoModel->select('id,descricao')->orderBy('descricao', 'asc')->findAll();
         $data = [
             'tipos' => $tipos
         ];
-        return view('tipo/index', $data);
+        return view('tipo/index');
     }
 
     public function criar()
@@ -51,11 +51,6 @@ class TipoController extends BaseController
         //Criando um novo objeto da entidade cliente
         $tipo = new \App\Entities\TipoEntity($post);
 
-        if ($tipo->descricao === "A1") {
-            $tipo->validade = 1;
-        } else {
-            $tipo->validade = 3;
-        }
 
         if ($this->tipoModel->protect(false)->save($tipo)) {
 
@@ -106,12 +101,7 @@ class TipoController extends BaseController
             $retorno['info'] = "Não houve alteração no registro!";
             return $this->response->setJSON($retorno);
         }
-
-        if ($tipo->descricao === "A1") {
-            $tipo->validade = 1;
-        } else {
-            $tipo->validade = 3;
-        }
+        
 
         if ($this->tipoModel->protect(false)->save($tipo)) {
             session()->setFlashdata('sucesso', "O registro foi atualizado");
@@ -163,18 +153,21 @@ class TipoController extends BaseController
         if (!$this->request->isAJAX()) {
             return redirect()->back();
         }
-        $atributos = ['id', 'descricao', 'midia'];
-        $tipos = $this->tipoModel->select($atributos)
+
+        $tipos = $this->tipoModel->select('*')
             ->orderBy('descricao', 'asc')->findAll();
         $data = [];
 
         foreach ($tipos as $tipo) {
             $id = encrypt($tipo->id);
             $data[] = [
-                'descricao'   => $tipo->descricao,
-                'midia'  => $tipo->midia,
-                'acoes'  => '<a  href="' . base_url("tipos/editar/$id") . '" title="Editar"><i class="fas fa-edit text-success"></i></a> &nbsp; 
-                             <a  href="' . base_url("tipos/deletar/$id") . '" title="Excluir"><i class="fas fa-trash-alt text-danger"></i></a>'
+                'descricao' => $tipo->descricao,
+                'validade'  => $tipo->validade,
+                'custo'     => $tipo->preco_custo,
+                'venda'     => $tipo->preco_venda,
+                'obs'       => $tipo->obs,
+                'acoes'     => '<a href="' . base_url("tipos/editar/$id") . '" title="Editar"><i class="fas fa-edit text-success"></i></a> &nbsp; 
+                                <a href="' . base_url("tipos/deletar/$id") . '" title="Excluir"><i class="fas fa-trash-alt text-danger"></i></a>'
             ];
         }
 

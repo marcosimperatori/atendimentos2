@@ -2,12 +2,15 @@
 
 <?php echo $this->section('conteudo'); ?>
 
-<div class="nav">
-  <ol class="breadcrumb my-3">
-    <li class="breadcrumb-item"><a href="<?= base_url('home') ?>"><i class="fa-solid fa-house text-success">&nbsp;</i></a></li>
-    <li class="breadcrumb-item active">Listagem de escritórios</li>
-  </ol>
-</div>
+<div class="pagetitle">
+  <h1>Listagem de escritórios parceiros</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="<?= base_url('home'); ?>">Home</a></li>
+      <li class="breadcrumb-item active">Escritórios parceiros</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
 
 <?php echo $this->include('layout/mensagem'); ?>
 
@@ -18,7 +21,7 @@
     </div>
     <div class="card-body">
       <table id="lista-escritorios" class="table responsive table-hover">
-        <thead class="table-dark text-white">
+        <thead class="table-primary">
           <tr>
             <th scope="col">Cliente</th>
             <th scope="col">Situação</th>
@@ -33,6 +36,6 @@
 <?php $this->endSection(); ?>
 
 <?php echo $this->section('scripts'); ?>
-<script src="<?php echo base_url("assets/js/escritorio.js") ?>"></script>
+<script src="<?php echo base_url("assets/js-old/escritorio.js") ?>"></script>
 
 <?php echo $this->endSection(); ?>

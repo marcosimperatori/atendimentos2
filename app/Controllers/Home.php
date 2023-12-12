@@ -38,6 +38,7 @@ class Home extends BaseController
         $data = [
             'vencimentos' => $vencimentos,
             'escritorios' => $escritorios,
+            'cert' => $this->getInfoCertificados()
         ];
 
         return view('home/index', $data);
@@ -126,5 +127,35 @@ class Home extends BaseController
         }
 
         return $this->response->setJSON($data);
+    }
+
+    private function getInfoCertificados()
+    {
+        $currentDate = new \DateTime();
+        $dataProjetada = clone $currentDate;
+        $dataProjetada->modify('+30 days');
+
+        $lista = $this->certificadoModel
+            ->select("(SELECT COUNT(id) FROM certificados c WHERE c.validade < '" . $currentDate->format('Y-m-d') . "') AS vencidos")
+            ->select("(SELECT COUNT(id) FROM certificados c WHERE c.validade > '" . $currentDate->format('Y-m-d') . "') AS vigentes")
+            ->select("(SELECT COUNT(id) FROM certificados c WHERE c.validade >= '" . $currentDate->format('Y-m-d') . "' AND c.validade <='" . $dataProjetada->format('Y-m-d') . "') AS renovar")
+            ->findAll();
+
+
+        if (!empty($lista)) {
+            $data = [
+                'vencidos' => $lista[0]->vencidos,
+                'vigentes' => $lista[0]->vigentes,
+                'renovar'  => $lista[0]->renovar,
+            ];
+        } else {
+            $data = [
+                'vencidos' => 0,
+                'vigentes' => 0,
+                'renovar'  => 0,
+            ];
+        }
+
+        return $data;
     }
 }

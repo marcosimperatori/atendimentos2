@@ -80,7 +80,7 @@ class ClienteController extends BaseController
     private function historicoCliente($idCliente = null)
     {
         $certificados = new CertificadoModel();
-        $historico = $certificados->select('tipos.descricao, tipos.midia, certificados.emissao_em, certificados.validade,certificados.preco_venda,certificados.comissao_esc')
+        $historico = $certificados->select('tipos.descricao, certificados.emissao_em, certificados.validade,certificados.preco_venda,certificados.comissao_esc')
             ->join('tipos', 'tipos.id = certificados.idtipo')
             ->where('idcliente', $idCliente)
             ->orderBy('emissao_em', 'desc')->findAll();

@@ -41,5 +41,5 @@
 <?php $this->endSection(); ?>
 
 <?php echo $this->section('scripts'); ?>
-<script src="<?php echo base_url("assets/js/tipo.js") ?>"></script>
+<script src="<?php echo base_url("assets/js-old/tipo.js") ?>"></script>
 <?php echo $this->endSection(); ?>

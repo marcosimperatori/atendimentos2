@@ -13,7 +13,9 @@ class CertificadoModel extends Model
     protected $returnType       = '\App\Entities\CertificadoEntity';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['idcliente', 'idescritorio', 'preco_venda', 'comissao_esc', 'validade', 'ativo'];
+    protected $allowedFields    = [
+        'idcliente', 'idescritorio', 'preco_venda', 'comissao_esc', 'validade', 'ativo'
+    ];
 
 
     // Validation
