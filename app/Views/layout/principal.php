@@ -2,81 +2,232 @@
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?= MY_APP ?></title>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <title>Controle Certificado Digital</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-  <!--
+  <!-- Favicons -->
+  <link href="<?php echo base_url("assets/img/favicon.ico") ?>" rel="icon">
+  <link href="<?php echo base_url("assets/img/apple-touch-icon.png") ?>" rel="apple-touch-icon">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;700&display=swap" rel="stylesheet">-->
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <!-- Vendor CSS Files -->
+  <link href="<?php echo base_url("assets/vendor/bootstrap/css/bootstrap.min.css") ?>" rel="stylesheet">
+  <link href="<?php echo base_url("assets/vendor/bootstrap-icons/bootstrap-icons.css") ?>" rel="stylesheet">
+  <link href="<?php echo base_url("assets/vendor/boxicons/css/boxicons.min.css") ?>" rel="stylesheet">
+  <link href="<?php echo base_url("assets/vendor/quill/quill.snow.css") ?>" rel="stylesheet">
+  <link href="<?php echo base_url("ssets/vendor/quill/quill.bubble.css") ?>" rel="stylesheet">
+  <link href="<?php echo base_url("assets/vendor/remixicon/remixicon.css") ?>" rel="stylesheet">
+  <link href="<?php echo base_url("assets/vendor/simple-datatables/style.css") ?>" rel="stylesheet">
 
-  <!-- <link rel="stylesheet" href="<?php echo base_url("assets/css/bootstrap.yeti.min.css") ?>"> -->
-
-  <link rel="stylesheet" href="<?php echo base_url("assets/fontawesome/css/all.min.css") ?>">
-
-  <link href="https://cdn.datatables.net/v/bs4/jq-3.7.0/dt-1.13.6/r-2.5.0/datatables.min.css" rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link href="<?php echo base_url("assets/css/style.css") ?>" rel="stylesheet">
 </head>
 
 <body>
-  <main class="">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="<?= base_url('home'); ?>">Início</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
-              Cadastros
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="<?php echo site_url("home"); ?>" class="logo d-flex align-items-center">
+        <span class="d-none d-lg-block"><?= MY_APP ?></span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+          </ul><!-- End Notification Dropdown Items -->
+
+        </li><!-- End Notification Nav -->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number">3</span>
+          </a><!-- End Messages Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              You have 3 new messages
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="<?php echo base_url("assets/img/messages-1.jpg") ?>" alt="" class="rounded-circle">
+                <div>
+                  <h4>Maria Hudson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+
+            <li class="dropdown-footer">
+              <a href="#">Show all messages</a>
+            </li>
+
+          </ul><!-- End Messages Dropdown Items -->
+
+        </li><!-- End Messages Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo session()->get('user')->nome; ?></span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-person"></i>
+                <span>Meu perfil</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sair</span>
+              </a>
+            </li>
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar shadow">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="<?= base_url('home'); ?>">
+          <i class="bi bi-grid"></i>
+          <span>Home</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link" href="pages-blank.html">
+          <i class="bi bi-file-earmark"></i>
+          <span>Emissão certificado</span>
+        </a>
+      </li><!-- End emissão certificado -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Cadastros</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="<?= base_url('clientes'); ?>">
+              <i class="bi bi-circle"></i><span>Clientes</span>
             </a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="<?= base_url('clientes'); ?>">Clientes</a>
-              <a class="dropdown-item" href="<?= base_url('escritorios'); ?>">Escritórios</a>
-              <a class="dropdown-item" href="<?= base_url('tipos'); ?>">Tipos de Certificado</a>
-              <a class="dropdown-item" href="<?= base_url('despesas'); ?>">Despesas</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="<?= base_url('parametros'); ?>">Parâmetros</a>
-            </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('certificados'); ?>">Emitir Certificado</a>
+          <li>
+            <a href="<?= base_url('escritorios'); ?>">
+              <i class="bi bi-circle"></i><span>Escritórios parceiros</span>
+            </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('atendimentos'); ?>">Despesas</a>
+          <li>
+            <a href="<?= base_url('tipos'); ?>">
+              <i class="bi bi-circle"></i><span>Tipos certificados</span>
+            </a>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a href="<?= base_url('perfil'); ?>" class="nav-link"><i class="fas fa-user"></i> &nbsp; <?php echo session()->get('user')->nome; ?></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-warning" href="<?= base_url('logout'); ?>"><i class="fas fa-sign-out-alt"></i>&nbsp; Sair</a>
-            </li>
-          </ul>
-        </form>
-      </div>
-    </nav>
+      </li><!-- End Components Nav -->
+
+  </aside><!-- End Sidebar-->
+
+
+  <main id="main" class="main">
+    <?php echo $this->renderSection('conteudo'); ?>
   </main>
 
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+  </footer><!-- End Footer -->
 
-  <div class="container">
-    <?php echo $this->renderSection('conteudo'); ?>
-  </div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <script src="https://cdn.datatables.net/v/bs4/jq-3.7.0/dt-1.13.6/r-2.5.0/datatables.min.js"></script>
+  <!-- Vendor JS Files -->
+  <script src="<?php echo base_url("assets/vendor/apexcharts/apexcharts.min.js") ?>"></script>
+  <script src="<?php echo base_url("assets/vendor/bootstrap/js/bootstrap.bundle.min.js") ?>"></script>
+  <script src="<?php echo base_url("assets/vendor/chart.js/chart.umd.js") ?>"></script>
+  <script src="<?php echo base_url("assets/vendor/echarts/echarts.min.js") ?>"></script>
+  <script src="<?php echo base_url("assets/vendor/quill/quill.min.js") ?>"></script>
+  <script src="<?php echo base_url("assets/vendor/simple-datatables/simple-datatables.js") ?>"></script>
+  <script src="<?php echo base_url("assets/vendor/tinymce/tinymce.min.js") ?>"></script>
+  <script src="<?php echo base_url("assets/vendor/php-email-form/validate.js") ?>"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+  <!-- Template Main JS File -->
+  <script src="<?php echo base_url("assets/js/main.js") ?>"></script>
+
+
+
 
   <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
 
@@ -84,8 +235,8 @@
 
   <script src="<?php echo site_url("assets/jquery/jquery.validate.js") ?>"></script>
   <script src="<?php echo site_url('assets/'); ?>jquery/jquery.mask.min.js"></script>
-  <script src="<?php echo base_url("assets/js/app.js") ?>"></script>
-  <script src="<?php echo base_url("assets/js/comons.js") ?>"></script>
+  <script src="<?php echo base_url("assets/js-old/app.js") ?>"></script>
+  <script src="<?php echo base_url("assets/js-old/comons.js") ?>"></script>
 
   <?php echo $this->renderSection('scripts'); ?>
 

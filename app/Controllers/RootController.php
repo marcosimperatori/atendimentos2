@@ -22,7 +22,7 @@ class RootController extends BaseController
 
     public function pdfClientes()
     {
-        $escritorios = $this->escritorioModel->select($atributos)
+        $escritorios = $this->escritorioModel->select('*')
             ->orderBy('nome', 'asc')->findAll();
         $data = [];
     }

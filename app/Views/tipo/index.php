@@ -2,12 +2,15 @@
 
 <?php echo $this->section('conteudo'); ?>
 
-<div class="nav">
-  <ol class="breadcrumb my-3">
-    <li class="breadcrumb-item"><a href="<?= base_url('home') ?>"><i class="fa-solid fa-house text-success">&nbsp;</i></a></li>
-    <li class="breadcrumb-item active">Tipos de certificados</li>
-  </ol>
-</div>
+<div class="pagetitle">
+  <h1>Tipos de certificados</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="<?= base_url('home'); ?>">Home</a></li>
+      <li class="breadcrumb-item active">Tipos</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
 
 <?php echo $this->include('layout/mensagem'); ?>
 
