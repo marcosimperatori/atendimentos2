@@ -16,10 +16,10 @@
 
 <section id="tab-escritorio" class="my-2">
   <div class="card border-secondary mb-3" style="max-width: 100%;">
-    <div class="card-header bg-light">
-      <a href="<?php echo base_url('escritorios/criar'); ?>" class="btn btn-primary btn-sm mb-4" title="Permite incluir um novo usuário no sistema">Novo escritório</a>
-    </div>
     <div class="card-body">
+      <div class="card-title">
+        <a href="<?php echo base_url('escritorios/criar'); ?>" class="btn btn-primary btn-sm mb-4" title="Permite incluir um novo usuário no sistema">Novo escritório</a>
+      </div>
       <table id="lista-escritorios" class="table responsive table-hover">
         <thead class="table-primary">
           <tr>

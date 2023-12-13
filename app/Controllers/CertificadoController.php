@@ -206,7 +206,7 @@ class CertificadoController extends BaseController
         }
         $atributos = [
             'certificados.id', 'clientes.nomecli', 'certificados.ativo',
-            'certificados.validade', 'certificados.emissao_em', 'escritorios.nome', 'tipos.descricao', 'tipos.midia'
+            'certificados.validade', 'certificados.emissao_em', 'escritorios.nome', 'tipos.descricao'
         ];
         $certificados = $this->certificadoModel->select($atributos)
             ->join('clientes', 'clientes.id = certificados.idcliente')

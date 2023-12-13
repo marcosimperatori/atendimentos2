@@ -38,7 +38,8 @@ class Home extends BaseController
         $data = [
             'vencimentos' => $vencimentos,
             'escritorios' => $escritorios,
-            'cert' => $this->getInfoCertificados()
+            'cert' => $this->getInfoCertificados(),
+            'clientes' => $this->getInfoClientes()
         ];
 
         return view('home/index', $data);
@@ -153,6 +154,27 @@ class Home extends BaseController
                 'vencidos' => 0,
                 'vigentes' => 0,
                 'renovar'  => 0,
+            ];
+        }
+
+        return $data;
+    }
+
+    private function getInfoClientes()
+    {
+
+        $lista = $this->clienteModel->select('(select count(id) from clientes c where c.ativo=1) as ativos')
+            ->select('(select count(id) from clientes c where c.ativo=0) as inativos')->findAll();
+
+        if (!empty($lista)) {
+            $data = [
+                'ativos' => $lista[0]->ativos,
+                'inativos' => $lista[0]->inativos
+            ];
+        } else {
+            $data = [
+                'ativos' => 0,
+                'inativos' => 0
             ];
         }
 

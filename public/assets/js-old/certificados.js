@@ -22,9 +22,6 @@ $("#certificados-emitidos").DataTable({
       data: "tipo",
     },
     {
-      data: "midia",
-    },
-    {
       data: "validade",
     },
     {
@@ -45,6 +42,7 @@ $("#certificados-emitidos").DataTable({
   pageLength: 10,
   columnDefs: [
     {
+      width: "65px",
       type: "date", // Defina o tipo de dados como "date" para a coluna de datas
       targets: [0], // Especifique a coluna de datas
       render: function (data, type, row) {
@@ -56,15 +54,11 @@ $("#certificados-emitidos").DataTable({
       },
     },
     {
-      width: "65px",
-      targets: [0],
-    },
-    {
       width: "360px",
       targets: [1],
     },
     {
-      width: "15px",
+      width: "25px",
       className: "text-center",
       targets: [2],
     },
@@ -74,16 +68,12 @@ $("#certificados-emitidos").DataTable({
       targets: [3],
     },
     {
-      width: "65px",
+      width: "75px",
       targets: [4],
     },
     {
       width: "50px",
       targets: [5],
-    },
-    {
-      width: "50px",
-      targets: [6],
     },
   ],
   order: [[0, "desc"]],
@@ -333,37 +323,6 @@ $("#gerarPDF2").on("click", () => {
     const url = URL.createObjectURL(blob);
     window.open(url);
   });
-});
-
-$("#uf").change(function () {
-  var selectedUF = $("#uf").val();
-
-  if (selectedUF !== "") {
-    // Mostra o texto de "Carregando" no select de cidades
-    $("#cidade")
-      .html("<option value=''>Carregando...</option>")
-      .attr("disabled", true);
-
-    $.get("municipio", { uf: selectedUF }, function (data) {
-      $("#cidade").empty().attr("disabled", false); // Habilita o select de cidades
-
-      if (data.length > 0) {
-        $("#cidade").append("<option value=''>Selecione</option>");
-        $.each(data, function (key, value) {
-          $("#cidade").append(
-            "<option value='" + value.id + "'>" + value.nome + "</option>"
-          );
-        });
-      } else {
-        $("#cidade").append(
-          "<option value=''>Nenhuma cidade encontrada</option>"
-        );
-      }
-    });
-  } else {
-    // Se nenhuma UF foi selecionada, limpa a lista de cidades e desativa o select
-    $("#cidade").empty().attr("disabled", true);
-  }
 });
 
 function buscaCNPJ() {

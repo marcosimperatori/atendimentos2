@@ -168,7 +168,7 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link" href="pages-blank.html">
+        <a class="nav-link" href="<?php echo base_url("certificados")?>">
           <i class="bi bi-file-earmark"></i>
           <span>Emissão certificado</span>
         </a>

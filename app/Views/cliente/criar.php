@@ -2,12 +2,16 @@
 
 <?php echo $this->section('conteudo'); ?>
 
-<div class="nav">
-  <ol class="breadcrumb my-3">
-    <li class="breadcrumb-item"><a href="<?php echo site_url("home"); ?>"><i class="fa-solid fa-house text-success">&nbsp;</i></a></li>
-    <li class="breadcrumb-item"><a href="<?php echo site_url("clientes"); ?>">Clientes</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Inclusão de cliente
-</div>
+<div class="pagetitle">
+  <h1>Cadastro de cliente</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="<?= base_url('home'); ?>">Home</a></li>
+      <li class="breadcrumb-item"><a href="<?php echo site_url("clientes"); ?>">Clientes</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Inserção</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
 
 <section>
 
@@ -15,11 +19,11 @@
     <div id="response" class="col-8"></div>
 
     <div class="col-8">
-      <div class="card border-secondary mt-5">
-        <div class="card-header bg-light">
-          <h4 class="text-primary">Cadastro de cliente</h4>
-        </div>
-        <div class="card-body shadow">
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="card-title">
+            <h4>Dados do cliente</h4>
+          </div>
 
           <?php echo form_open('/', ['id' => 'form_cad_cliente', 'class' => 'insert'], ['id' => "$cliente->id"]) ?>
 
@@ -42,5 +46,5 @@
 <?php $this->endSection(); ?>
 
 <?php echo $this->section('scripts'); ?>
-<script src="<?php echo base_url("assets/js/cliente.js") ?>"></script>
+<script src="<?php echo base_url("assets/js-old/cliente.js") ?>"></script>
 <?php echo $this->endSection(); ?>

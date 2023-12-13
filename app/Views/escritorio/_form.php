@@ -34,7 +34,7 @@
 <div class="row">
   <div class="form-group mt-2 col-lg-12">
     <label for="obs" class="form-label mt-2">Observações do cliente</label>
-    <textarea id="obs" name="obs" cols="30" rows="5" placeholder="Insira as observações da empresa" class="form-control"><?php echo esc($escritorio->obs); ?></textarea>
+    <textarea id="obs" name="obs" cols="30" rows="5" placeholder="Espaço para observações do escritório" class="form-control"><?php echo esc($escritorio->obs); ?></textarea>
 
   </div>
 </div>
