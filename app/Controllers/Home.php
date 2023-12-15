@@ -39,7 +39,8 @@ class Home extends BaseController
             'vencimentos' => $vencimentos,
             'escritorios' => $escritorios,
             'cert' => $this->getInfoCertificados(),
-            'clientes' => $this->getInfoClientes()
+            'clientes' => $this->getInfoClientes(),
+            'certificados' => $this->getUltimasVendas()
         ];
 
         return view('home/index', $data);
@@ -179,5 +180,22 @@ class Home extends BaseController
         }
 
         return $data;
+    }
+
+    public function getUltimasVendas()
+    {
+        $atributos = [
+            'certificados.id', 'clientes.nomecli', 'certificados.ativo',
+            'certificados.validade', 'certificados.emissao_em', 'escritorios.nome', 'tipos.descricao'
+        ];
+        $vendas = $this->certificadoModel->select($atributos)
+            ->join('clientes', 'clientes.id = certificados.idcliente')
+            ->join('tipos', 'tipos.id = certificados.idtipo')
+            ->join('escritorios', 'escritorios.id = clientes.escritorio')
+            ->orderBy('emissao_em', 'desc')
+            ->orderBy('nomecli', 'asc')
+            ->limit(2, 0)->findAll();
+
+        return $vendas;
     }
 }

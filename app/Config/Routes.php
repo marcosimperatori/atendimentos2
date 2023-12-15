@@ -35,6 +35,7 @@ $routes->get('home', 'Home::index');
 $routes->get('home/clientes', 'Home::getResumoClientes');
 $routes->get('home/escritorios', 'Home::getResumoEscritorios');
 $routes->get('home/certificados', 'Home::getResumoCertificados');
+$routes->get('home/vendas', 'Home::getUltimasVendas');
 
 
 $routes->get('clientes', 'ClienteController::index');

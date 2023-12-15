@@ -35,7 +35,7 @@ class CertificadoController extends BaseController
     {
         $certificado = new \App\Entities\CertificadoEntity();
         $clientes = $this->clienteModel->select('id,nomecli')->where('ativo', 1)->orderBy('nomecli', 'asc')->findAll();
-        $tipos = $this->tipoModel->select('id,descricao,midia,preco_venda,validade')->orderBy('descricao', 'asc')->findAll();
+        $tipos = $this->tipoModel->select('id,descricao,preco_venda,validade')->orderBy('descricao', 'asc')->findAll();
 
         $data = [
             'titulo' => "Cadastrando novo certificado",
@@ -222,7 +222,6 @@ class CertificadoController extends BaseController
                 'emissao'    => date('d/m/Y', strtotime($certificado->emissao_em)),
                 'nome'       => $certificado->nomecli,
                 'tipo'       => $certificado->descricao,
-                'midia'      => $certificado->midia,
                 'validade'   => date('d/m/Y', strtotime($certificado->validade)),
                 'ativo'      => ($certificado->ativo == true ? '<i class="fa fa-toggle-on text-success"></i>&nbsp;Vigente' : '<i class="fa fa-toggle-off text-secondary"></i>&nbsp;Vencido'),
                 'acoes'      => '<a  href="' . base_url("certificados/editar/$id") . '" title="Editar"><i class="fas fa-edit text-success"></i></a> &nbsp; 

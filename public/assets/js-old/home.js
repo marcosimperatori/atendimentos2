@@ -1,3 +1,64 @@
+$("#vendas").DataTable({
+  oLanguage: DATATABLE_PTBR,
+  ajax: {
+    url: "certificados_get_all",
+    beforeSend: function () {
+      $("#card-vendas").LoadingOverlay("show", {
+        background: "rgba(165, 190, 100, 0.5)",
+      });
+    },
+    complete: function () {
+      $("#card-vendas").LoadingOverlay("hide");
+    },
+  },
+  columns: [
+    {
+      data: "emissao",
+    },
+    {
+      data: "nome",
+    },
+    {
+      data: "tipo",
+    },
+  ],
+  deferRender: true,
+  processing: false,
+  language: {
+    processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>',
+  },
+  responsive: true,
+  autoWidth: false,
+  pagingType: $(window).width() < 768 ? "simple" : "simple_numbers",
+  pageLength: 10,
+  lengthChange: false,
+  columnDefs: [
+    {
+      width: "65px",
+      type: "date", // Defina o tipo de dados como "date" para a coluna de datas
+      targets: [0], // Especifique a coluna de datas
+      render: function (data, type, row) {
+        // Renderizar a data no formato "YYYY-MM-DD" para ordenação
+        if (type === "sort" || type === "type") {
+          return data.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$3-$2-$1");
+        }
+        return data;
+      },
+    },
+    {
+      width: "100px",
+      className: "text-center",
+      targets: [0],
+    },
+    {
+      width: "120px",
+      className: "text-center",
+      targets: [2],
+    },
+  ],
+  order: [[0, "desc"]],
+});
+
 function carregarGraficos() {
   chartClientes();
   chartEscritorios();
