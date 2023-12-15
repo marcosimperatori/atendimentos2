@@ -2,24 +2,27 @@
 
 <?php echo $this->section('conteudo'); ?>
 
-<div class="nav">
-  <ol class="breadcrumb my-3">
-    <li class="breadcrumb-item"><a href="<?php echo site_url("home"); ?>"><i class="fa-solid fa-house text-success">&nbsp;</i></a></li>
-    <li class="breadcrumb-item"><a href="<?php echo site_url("certificados"); ?>">Certificados emitidos</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Edição de certificado</li>
-  </ol>
-</div>
+<div class="pagetitle">
+  <h1>Lançar certificado</h1>
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="<?= base_url('home'); ?>">Home</a></li>
+      <li class="breadcrumb-item"><a href="<?php echo site_url("certificados"); ?>">Certificados</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Edição</li>
+    </ol>
+  </nav>
+</div><!-- End Page Title -->
 
 <section>
 
   <div id="response" class="col-8"></div>
 
   <div class="col-8">
-    <div class="card border-secondary mt-5">
-      <div class="card-header bg-light gap-0">
-        <h4 class="text-primary">Cadastro de certificado</h4>
-      </div>
+    <div class="cardmt-5">
       <div class="card-body">
+        <div class="card-title gap-0">
+          <h4>Dados certificado</h4>
+        </div>
         <?php echo form_open('/', ['id' => 'form_cad_certificado', 'class' => 'update'], ['id' => "$certificado->id"]) ?>
 
         <?php echo $this->include('certificado/_form'); ?>
@@ -38,5 +41,5 @@
 <?php $this->endSection(); ?>
 
 <?php echo $this->section('scripts'); ?>
-<script src="<?php echo base_url("assets/js/certificados.js") ?>"></script>
+<script src="<?php echo base_url("assets/js-old/certificados.js") ?>"></script>
 <?php echo $this->endSection(); ?>

@@ -99,7 +99,7 @@ class CertificadoController extends BaseController
 
         $certificado = $this->buscaCertificadoOu404($id);
         $clientes = $this->clienteModel->select('id,nomecli')->where('ativo', 1)->orderBy('nomecli', 'asc')->findAll();
-        $tipos = $this->tipoModel->select('id,descricao,midia,preco_venda,validade')->orderBy('descricao', 'asc')->findAll();
+        $tipos = $this->tipoModel->select('id,descricao,preco_venda,validade')->orderBy('descricao', 'asc')->findAll();
 
         $data = [
             'titulo' => "Editando certificado",
