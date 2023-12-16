@@ -241,6 +241,10 @@ $("#form_pesquisa").on("submit", function (e) {
         }
 
         if (data.redirect_url) {
+          window.open(data.redirect_url, "_blank");
+        }
+
+        /* if (data.redirect_url) {
           $("#response").html(
             '<div class="alert alert-success alert-dismissible fade show mt-2" role="alert">' +
               data.redirect_url +
@@ -249,7 +253,7 @@ $("#form_pesquisa").on("submit", function (e) {
               "</button>" +
               "</div>"
           );
-        }
+        }*/
 
         if (data.data) {
           const items = [];

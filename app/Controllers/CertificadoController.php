@@ -10,6 +10,7 @@ use App\Models\TipoModel;
 use DateInterval;
 use DateTime;
 use Doctrine\Common\Annotations\Annotation\Target;
+use Mpdf\Mpdf;
 
 class CertificadoController extends BaseController
 {
@@ -295,8 +296,8 @@ class CertificadoController extends BaseController
             ->orderBy('nomecli', 'asc')->findAll();
 
         if (!empty($certificados)) {
-           // $mpdf = new \Mpdf\Mpdf();
-           // $html = '';
+            // $mpdf = new \Mpdf\Mpdf();
+            // $html = '';
 
             foreach ($certificados as $certificado) {
                 //$html .= "<p>" . $certificado->nomecli . " (válido até: " . $certificado->validade . ")" . "</p>";
@@ -306,24 +307,56 @@ class CertificadoController extends BaseController
                     'validade' => date('d/m/Y', strtotime($certificado->validade)),
                 ];
             }
-            //$date = new DateTime();
-            //$time = $date->format('d/m/Y H:i:s');
-            //$mpdf->SetHeader('PDF Teste - ' . MY_APP . ' - Gerado em ' . $time);
-           // $mpdf->WriteHTML($html);
 
-           // $pdfPath = str_replace('\\', '/', WRITEPATH . 'temp/vecimentos.pdf');
-            //$mpdf->Output($pdfPath, \Mpdf\Output\Destination::FILE);
+            $rel['conteudo'] = view('relatorios/vecto_por_escritorio', ['dados' => $certificados]);
 
-            $retorno['data'] = $data;
-           // $retorno['redirect_url'] = "<a href=\"" . base_url('certificados/pdf/' . base64_encode($pdfPath)) . "\" target=\"_blank\">Clique aqui para ver seu relatório</a>";
+            // Configurações do mPDF
+            $mpdf = new Mpdf();
+            $mpdf->WriteHTML($rel['conteudo']);
+
+            // Nome do arquivo PDF a ser gerado
+            $nomeArquivo = 'seu_arquivo.pdf';
+
+            // Salva o PDF no servidor (opcional)
+            $pdfPath = WRITEPATH . 'pdf/' . $nomeArquivo;
+            $mpdf->Output($pdfPath, 'F');
+
+            // Retorna a URL do PDF gerado
+            $retorno['redirect_url'] = base_url('pdf/' . $nomeArquivo);
             return $this->response->setJSON($retorno);
+
+            // Saída do PDF (exibido em nova aba)
+            // $mpdf->Output($nomeArquivo, 'I');
+            // exit();
+
+            // $retorno['data'] = $data;
+            // $retorno['redirect_url'] = "<a href=\"" . base_url('certificados/pdf/' . base64_encode($pdfPath)) . "\" target=\"_blank\">Clique aqui para ver seu relatório</a>";
+            //return $this->response->setJSON($retorno);
         }
 
         $retorno['info'] = "Não foi possível localizar registros com o filtro informado!";
         return $this->response->setJSON($retorno);
     }
 
-    public function exibirPDF($pdfPath)
+    public function exibirPdf($nomeArquivo)
+    {
+        $pdfPath = WRITEPATH . 'pdf/' . $nomeArquivo;
+
+        // Verifique se o arquivo PDF existe
+        if (file_exists($pdfPath)) {
+            // Carregue o conteúdo do PDF e exiba
+            $pdfContent = file_get_contents($pdfPath);
+            header('Content-Type: application/pdf');
+            echo $pdfContent;
+            unlink($pdfPath);
+            exit();
+        } else {
+            // Se o arquivo não existir, exiba uma mensagem de erro ou redirecione conforme necessário
+            die('Arquivo PDF não encontrado');
+        }
+    }
+
+    public function exibirPDF2($pdfPath)
     {
         $pdfPath = base64_decode($pdfPath);
 

@@ -31,6 +31,10 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'LoginController::index');
 
+// app/Config/Routes.php
+$routes->get('pdf/(:any)', 'CertificadoController::exibirPdf/$1');
+
+
 $routes->get('home', 'Home::index');
 $routes->get('home/clientes', 'Home::getResumoClientes');
 $routes->get('home/escritorios', 'Home::getResumoEscritorios');
