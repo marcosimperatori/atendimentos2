@@ -18,7 +18,7 @@
   <div id="response" class="col-8"></div>
 
   <div class="col-8">
-    <div class="cardmt-5">
+    <div class="cardmt-3">
       <div class="card-body">
         <div class="card-title gap-0">
           <h4>Dados certificado</h4>

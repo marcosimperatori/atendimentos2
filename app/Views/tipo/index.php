@@ -24,7 +24,6 @@
         <thead class="table-primary">
           <tr>
             <th scope="col">Certificado</th>
-            <th scope="col">Validade</th>
             <th scope="col">Preço custo</th>
             <th scope="col">Preço venda</th>
             <th scope="col">Observação</th>

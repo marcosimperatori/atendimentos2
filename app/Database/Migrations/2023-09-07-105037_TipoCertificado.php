@@ -29,11 +29,6 @@ class TipoCertificado extends Migration
                 'default' => 0,
                 'constraint' => '11,2',
             ],
-            'validade' => [
-                'type' => 'INT',
-                'contraint' => 5,
-                'unsigned'       => true,
-            ],
             'obs' => [
                 'type' => 'TEXT',
                 'null' => true
@@ -50,7 +45,7 @@ class TipoCertificado extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addUniqueKey(['descricao', 'validade'], 'desc_validade');
+        $this->forge->addUniqueKey('descricao');
         $this->forge->createTable('tipos');
     }
 

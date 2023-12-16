@@ -15,8 +15,8 @@
 
 <section>
   <div id="response" class="col-8"></div>
-  <div class="col-10">
-    <div class="card mt-5">
+  <div class="col-8">
+    <div class="card mt-3">
       <div class="card-body">
         <div class="card-title">
           <h4>Dados certificado</h4>

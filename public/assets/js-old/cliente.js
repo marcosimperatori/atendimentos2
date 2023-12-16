@@ -55,7 +55,14 @@ $("#form_cad_cliente").on("submit", function (e) {
   e.preventDefault();
   const selectValue = $("#escritorio").val();
   if (selectValue === "") {
-    alert("Por favor, vincule o cliente a um escritório.");
+
+    $("#response").html(
+      '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+        "Por favor, vincule o cliente a um escritório." +
+        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">' +
+        "</button>" +
+        "</div>"
+    );
     return false; // Impede o envio do formulário
   } else {
     var baseUrl = window.location.href;
@@ -88,8 +95,7 @@ $("#form_cad_cliente").on("submit", function (e) {
             $("#response").html(
               '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
                 response.info +
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                '<span aria-hidden="true">&times;</span>' +
+                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">' +
                 "</button>" +
                 "</div>"
             );

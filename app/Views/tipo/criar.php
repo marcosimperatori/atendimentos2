@@ -14,10 +14,10 @@
 </div><!-- End Page Title -->
 
 <section>
+  <div id="response" class="col-8"></div>
 
   <div class="col-lg-8">
-
-    <div class="card">
+    <div class="card mt-3">
       <div class="card-body">
         <h5 class="card-title">Cadastro</h5>
         <?php echo form_open('/', ['id' => 'form_cad_tipo', 'class' => 'insert'], ['id' => "$tipo->id"]) ?>

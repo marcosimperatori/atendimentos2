@@ -35,7 +35,7 @@ class CertificadoController extends BaseController
     {
         $certificado = new \App\Entities\CertificadoEntity();
         $clientes = $this->clienteModel->select('id,nomecli')->where('ativo', 1)->orderBy('nomecli', 'asc')->findAll();
-        $tipos = $this->tipoModel->select('id,descricao,preco_venda,validade')->orderBy('descricao', 'asc')->findAll();
+        $tipos = $this->tipoModel->select('id,descricao,preco_venda')->orderBy('descricao', 'asc')->findAll();
 
         $data = [
             'titulo' => "Cadastrando novo certificado",
@@ -99,7 +99,7 @@ class CertificadoController extends BaseController
 
         $certificado = $this->buscaCertificadoOu404($id);
         $clientes = $this->clienteModel->select('id,nomecli')->where('ativo', 1)->orderBy('nomecli', 'asc')->findAll();
-        $tipos = $this->tipoModel->select('id,descricao,preco_venda,validade')->orderBy('descricao', 'asc')->findAll();
+        $tipos = $this->tipoModel->select('id,descricao,preco_venda')->orderBy('descricao', 'asc')->findAll();
 
         $data = [
             'titulo' => "Editando certificado",
@@ -174,7 +174,7 @@ class CertificadoController extends BaseController
 
         $certificado = $this->buscaCertificadoOu404($id);
 
-        $registro = $this->certificadoModel->select('clientes.nomecli,tipos.descricao,tipos.midia,certificados.emissao_em,certificados.validade,certificados.id')
+        $registro = $this->certificadoModel->select('clientes.nomecli,tipos.descricao,certificados.emissao_em,certificados.validade,certificados.id')
             ->join('clientes', 'clientes.id = certificados.idcliente')
             ->join('tipos', 'tipos.id = certificados.idtipo')
             ->where('certificados.id', $certificado->id)
@@ -281,7 +281,7 @@ class CertificadoController extends BaseController
 
         $atributos = [
             'certificados.id', 'clientes.nomecli', 'certificados.ativo',
-            'certificados.validade', 'certificados.emissao_em', 'escritorios.nome', 'tipos.descricao', 'tipos.midia'
+            'certificados.validade', 'certificados.emissao_em', 'escritorios.nome', 'tipos.descricao'
         ];
 
         $certificados = $this->certificadoModel->select($atributos)
@@ -295,27 +295,27 @@ class CertificadoController extends BaseController
             ->orderBy('nomecli', 'asc')->findAll();
 
         if (!empty($certificados)) {
-            $mpdf = new \Mpdf\Mpdf();
-            $html = '';
+           // $mpdf = new \Mpdf\Mpdf();
+           // $html = '';
 
             foreach ($certificados as $certificado) {
-                $html .= "<p>" . $certificado->nomecli . " (válido até: " . $certificado->validade . ")" . "</p>";
+                //$html .= "<p>" . $certificado->nomecli . " (válido até: " . $certificado->validade . ")" . "</p>";
                 $data[] = [
                     'nome' => $certificado->nomecli,
                     'tipo'    => $certificado->descricao,
                     'validade' => date('d/m/Y', strtotime($certificado->validade)),
                 ];
             }
-            $date = new DateTime();
-            $time = $date->format('d/m/Y H:i:s');
-            $mpdf->SetHeader('PDF Teste - ' . MY_APP . ' - Gerado em ' . $time);
-            $mpdf->WriteHTML($html);
+            //$date = new DateTime();
+            //$time = $date->format('d/m/Y H:i:s');
+            //$mpdf->SetHeader('PDF Teste - ' . MY_APP . ' - Gerado em ' . $time);
+           // $mpdf->WriteHTML($html);
 
-            $pdfPath = str_replace('\\', '/', WRITEPATH . 'temp/vecimentos.pdf');
-            $mpdf->Output($pdfPath, \Mpdf\Output\Destination::FILE);
+           // $pdfPath = str_replace('\\', '/', WRITEPATH . 'temp/vecimentos.pdf');
+            //$mpdf->Output($pdfPath, \Mpdf\Output\Destination::FILE);
 
             $retorno['data'] = $data;
-            $retorno['redirect_url'] = "<a href=\"" . base_url('certificados/pdf/' . base64_encode($pdfPath)) . "\" target=\"_blank\">Clique aqui para ver seu relatório</a>";
+           // $retorno['redirect_url'] = "<a href=\"" . base_url('certificados/pdf/' . base64_encode($pdfPath)) . "\" target=\"_blank\">Clique aqui para ver seu relatório</a>";
             return $this->response->setJSON($retorno);
         }
 

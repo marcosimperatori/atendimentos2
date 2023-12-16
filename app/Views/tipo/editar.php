@@ -18,7 +18,7 @@
   <div id="response" class="col-8"></div>
 
   <div class="col-8">
-    <div class="card mt-5">
+    <div class="card mt-3">
       <div class="card-body">
         <div class="card-title gap-0">
           <h4>Edição de cadastro</h4>
@@ -41,5 +41,5 @@
 <?php $this->endSection(); ?>
 
 <?php echo $this->section('scripts'); ?>
-<script src="<?php echo base_url("assets/js/tipo.js") ?>"></script>
+<script src="<?php echo base_url("assets/js-old/tipo.js") ?>"></script>
 <?php echo $this->endSection(); ?>

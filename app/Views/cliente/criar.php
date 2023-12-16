@@ -14,30 +14,27 @@
 </div><!-- End Page Title -->
 
 <section>
+  <div id="response" class="col-8"></div>
 
-  <div class="jumbotron">
-    <div id="response" class="col-8"></div>
-
-    <div class="col-8">
-      <div class="card mt-3">
-        <div class="card-body">
-          <div class="card-title">
-            <h4>Dados do cliente</h4>
-          </div>
-
-          <?php echo form_open('/', ['id' => 'form_cad_cliente', 'class' => 'insert'], ['id' => "$cliente->id"]) ?>
-
-          <?php echo $this->include('cliente/_form'); ?>
-
-
-
-          <div class="d-flex justify-content-center mt-4">
-            <a href="<?php echo site_url("clientes"); ?>" id="btn-cancelar" class="btn btn-secondary btn-sm mb-2 mx-2">Cancelar</a>
-            <input id="btn-salvar" type="submit" value="Gravar" class="btn btn-success btn-sm mb-2">
-          </div>
-
-          <?php form_close(); ?>
+  <div class="col-8">
+    <div class="card mt-3">
+      <div class="card-body">
+        <div class="card-title">
+          <h4>Dados do cliente</h4>
         </div>
+
+        <?php echo form_open('/', ['id' => 'form_cad_cliente', 'class' => 'insert'], ['id' => "$cliente->id"]) ?>
+
+        <?php echo $this->include('cliente/_form'); ?>
+
+
+
+        <div class="d-flex justify-content-center mt-4">
+          <a href="<?php echo site_url("clientes"); ?>" id="btn-cancelar" class="btn btn-secondary btn-sm mb-2 mx-2">Cancelar</a>
+          <input id="btn-salvar" type="submit" value="Gravar" class="btn btn-success btn-sm mb-2">
+        </div>
+
+        <?php form_close(); ?>
       </div>
     </div>
   </div>

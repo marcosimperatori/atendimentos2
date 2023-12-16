@@ -83,7 +83,14 @@ $("#form_cad_certificado").on("submit", function (e) {
   e.preventDefault();
   const selectValue = $("#idcliente").val();
   if (selectValue === "") {
-    alert("Por favor, selecione um cliente!");
+    $("#response").html(
+      '<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
+        "Por favor, selecione um cliente" +
+        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">' +
+        "</button>" +
+        "</div>"
+    );
+
     return false; // Impede o envio do formulário
   } else {
     var baseUrl = window.location.href;
@@ -119,8 +126,7 @@ $("#form_cad_certificado").on("submit", function (e) {
             $("#response").html(
               '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
                 response.info +
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                '<span aria-hidden="true">&times;</span>' +
+                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">' +
                 "</button>" +
                 "</div>"
             );
@@ -226,10 +232,9 @@ $("#form_pesquisa").on("submit", function (e) {
 
         if (data.info) {
           $("#response").html(
-            '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+            '<div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">' +
               data.info +
-              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-              '<span aria-hidden="true">&times;</span>' +
+              '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">' +
               "</button>" +
               "</div>"
           );
@@ -237,7 +242,7 @@ $("#form_pesquisa").on("submit", function (e) {
 
         if (data.redirect_url) {
           $("#response").html(
-            '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+            '<div class="alert alert-success alert-dismissible fade show mt-2" role="alert">' +
               data.redirect_url +
               '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
               '<span aria-hidden="true">&times;</span>' +
@@ -250,7 +255,7 @@ $("#form_pesquisa").on("submit", function (e) {
           const items = [];
 
           data.data.forEach((item) => {
-            const div = $('<div class="item">');
+            const div = $('<div class="item mt-3">');
             div.append(
               $("<h6>").text(
                 "Vecto: " +

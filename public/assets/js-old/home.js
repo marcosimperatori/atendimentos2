@@ -52,7 +52,7 @@ $("#vendas").DataTable({
     },
     {
       width: "120px",
-      className: "text-center",
+      className: "text-left",
       targets: [2],
     },
   ],

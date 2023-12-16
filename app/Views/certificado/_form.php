@@ -15,8 +15,8 @@
     <select name="idtipo" id="idtipo" class="form-control">
       <option value="" selected>...</option>
       <?php foreach ($tipos as $tipo) : ?>
-        <option data-valor="<?php echo $tipo->preco_venda; ?>" data-anos="<?php echo $tipo->validade; ?>" value="<?php echo $tipo->id; ?>" <?php echo ($tipo->id == $certificado->idtipo) ? 'selected' : ''; ?>>
-          <?php echo $tipo->descricao . ' - ' . $tipo->midia; ?></option>
+        <option data-valor="<?php echo $tipo->preco_venda; ?>" value="<?php echo $tipo->id; ?>" <?php echo ($tipo->id == $certificado->idtipo) ? 'selected' : ''; ?>>
+          <?php echo $tipo->descricao; ?></option>
       <?php endforeach; ?>
     </select>
   </div>

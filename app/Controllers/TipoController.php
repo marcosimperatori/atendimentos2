@@ -101,7 +101,7 @@ class TipoController extends BaseController
             $retorno['info'] = "Não houve alteração no registro!";
             return $this->response->setJSON($retorno);
         }
-        
+
 
         if ($this->tipoModel->protect(false)->save($tipo)) {
             session()->setFlashdata('sucesso', "O registro foi atualizado");
@@ -162,7 +162,6 @@ class TipoController extends BaseController
             $id = encrypt($tipo->id);
             $data[] = [
                 'descricao' => $tipo->descricao,
-                'validade'  => $tipo->validade,
                 'custo'     => $tipo->preco_custo,
                 'venda'     => $tipo->preco_venda,
                 'obs'       => $tipo->obs,

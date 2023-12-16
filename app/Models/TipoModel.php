@@ -14,7 +14,7 @@ class TipoModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'descricao', 'preco_custo', 'preco_venda', 'validade', 'obs'
+        'descricao', 'preco_custo', 'preco_venda', 'obs'
     ];
 
     // Dates
@@ -26,26 +26,22 @@ class TipoModel extends Model
 
     // Validation
     protected $validationRules      = [
-        'descricao'   => 'required|min_length[2]',
+        'descricao'   => 'required|min_length[2]|is_unique[tipos.descricao,id,{$id}]',
         'preco_custo' => 'required',
         'preco_venda' => 'required',
-        'validade'    => 'required|is_natural_no_zero'
     ];
 
     protected $validationMessages   = [
         'descricao' => [
             'required'   => 'A descrição do certificado é obrigatória',
-            'min_length' => 'A descrição precisa ter ao menos 02 caracteres.'
+            'min_length' => 'A descrição precisa ter ao menos 02 caracteres',
+            'is_unique'  => 'Esta descrição já está sendo utilizada',
         ],
         'preco_custo' => [
             'required' => 'Informe o preço de custo'
         ],
         'preco_venda' => [
             'required' => 'Informe o preço de venda'
-        ],
-        'validade' => [
-            'required' => 'Informe validade/nº transações',
-            'is_natural_no_zero' => 'Deve ser maior que zero'
         ],
     ];
 

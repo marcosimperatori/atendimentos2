@@ -15,14 +15,16 @@ $("#lista-tipos").DataTable({
     {
       data: "descricao",
     },
-    {
-      data: "validade",
-    },
+
     {
       data: "custo",
+      render: $.fn.dataTable.render.number(",", ".", 2, "R$ "),
+      className: "text-right",
     },
     {
       data: "venda",
+      render: $.fn.dataTable.render.number(",", ".", 2, "R$ "),
+      className: "text-right",
     },
     {
       data: "obs",
@@ -31,7 +33,7 @@ $("#lista-tipos").DataTable({
       data: "acoes",
     },
   ],
-  deferRender: true,
+  deferRender: false,
   processing: false,
   language: {
     processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>',
@@ -42,27 +44,21 @@ $("#lista-tipos").DataTable({
   pageLength: 10,
   columnDefs: [
     {
-      width: "30px",
+      width: "250px",
       targets: [0],
     },
     {
-      className: "text-center",
-      width: "40px",
-      targets: [1],
-    },
-    {
-      className: "text-right",
       width: "110px",
-      targets: [2, 3],
+      className: "filter",
+      targets: [1, 2],
     },
     {
-      className: "text-left",
-      targets: [4],
+      targets: [3],
     },
     {
       className: "text-center",
       width: "30px",
-      targets: [5],
+      targets: [4],
     },
   ],
 });
@@ -87,7 +83,7 @@ $("#form_cad_tipo").on("submit", function (e) {
     processData: false,
     beforeSend: function () {
       $("#response").html("");
-      $("#form_cad_escritorio").LoadingOverlay("show", {
+      $("#form_cad_tipo").LoadingOverlay("show", {
         background: "rgba(165, 190, 100, 0.5)",
       });
     },
@@ -99,8 +95,7 @@ $("#form_cad_tipo").on("submit", function (e) {
           $("#response").html(
             '<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
               response.info +
-              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-              '<span aria-hidden="true">&times;</span>' +
+              '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">' +
               "</button>" +
               "</div>"
           );
@@ -118,7 +113,7 @@ $("#form_cad_tipo").on("submit", function (e) {
       alert("falha ao executar a operação");
     },
     complete: function () {
-      $("#form_cad_escritorio").LoadingOverlay("hide");
+      $("#form_cad_tipo").LoadingOverlay("hide");
     },
   });
 });

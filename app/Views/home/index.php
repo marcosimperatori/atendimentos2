@@ -177,7 +177,7 @@
                         left: 'center'
                       },
                       series: [{
-                        name: 'Access From',
+                        name: 'Quantidade',
                         type: 'pie',
                         radius: ['40%', '70%'],
                         avoidLabelOverlap: false,
