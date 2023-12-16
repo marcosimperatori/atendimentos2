@@ -71,6 +71,7 @@ $routes->get('certificados/confirma_exclusao/(:alphanum)', 'CertificadoControlle
 $routes->get('certificados/consulta', 'CertificadoController::consultar');
 $routes->post('certificados/buscar', 'CertificadoController::buscaAvancada');
 $routes->get('certificados/pdf/(:any)', 'CertificadoController::exibirPDF/$1');
+$routes->get('resumo-vendas', 'CertificadoController::resumoVendas');
 
 $routes->get('tipos', 'TipoController::index');
 $routes->get('tipos-all', 'TipoController::getAll');

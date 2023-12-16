@@ -7,11 +7,10 @@
   <title>Relatório de vencimentos por escritório</title>
 
 
-  <link href="<?php echo base_url("assets/css/style.css") ?>" rel="stylesheet">
 </head>
 
 <body>
-  <p>Relatório de certificados vencidos e próximos de vencer</p>
+  <p style="font-size: 16px; color: #333;">Relatório de certificados vencidos e próximos de vencer</p>
   <p><?php echo $dados[0]->nome ?></p>
   <table class="table">
     <thead>

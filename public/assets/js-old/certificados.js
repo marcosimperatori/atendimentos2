@@ -243,66 +243,6 @@ $("#form_pesquisa").on("submit", function (e) {
         if (data.redirect_url) {
           window.open(data.redirect_url, "_blank");
         }
-
-        /* if (data.redirect_url) {
-          $("#response").html(
-            '<div class="alert alert-success alert-dismissible fade show mt-2" role="alert">' +
-              data.redirect_url +
-              '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-              '<span aria-hidden="true">&times;</span>' +
-              "</button>" +
-              "</div>"
-          );
-        }*/
-
-        if (data.data) {
-          const items = [];
-
-          data.data.forEach((item) => {
-            const div = $('<div class="item mt-3">');
-            div.append(
-              $("<h6>").text(
-                "Vecto: " +
-                  item.validade +
-                  " - " +
-                  item.tipo +
-                  " - " +
-                  item.nome
-              )
-            );
-            items.push(div);
-          });
-
-          const div = $('<div class="container">');
-          div.append(items);
-
-          const link = $('<a href="#">Limpar&nbsp;</a>');
-          link.css("float", "right");
-          //const linkGerarPDF = $('<button id="gerarPDF">Gerar PDF</button>');
-          // linkGerarPDF.css("float", "right");
-
-          div.prepend(link);
-          //div.prepend(linkGerarPDF);
-
-          link.on("click", () => {
-            div.empty();
-          });
-
-          $("#resultado").append(div);
-
-          /*  linkGerarPDF.on("click", () => {
-            const divResultado = document.getElementById("resultado");
-
-            const pdf = new jsPDF("p", "mm", "a4");
-            pdf.addHTML(divResultado, () => {
-              const nomeDoArquivo = "meu_relatorio.pdf";
-              // Abrir o PDF em uma nova página
-              const blob = pdf.output("blob");
-              const url = URL.createObjectURL(blob);
-              window.open(url, "_blank");
-            });
-          });*/
-        }
       },
       error: function () {
         console.log("Erro na requisição:");

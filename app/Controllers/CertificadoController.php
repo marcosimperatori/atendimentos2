@@ -412,4 +412,56 @@ class CertificadoController extends BaseController
 
         return $certificado;
     }
+
+    public function resumoVendas()
+    {
+        if (!$this->request->isAJAX()) {
+            $retorno['resultado'] = 'Sem permissão de acesso!';
+            return $this->response->setJSON($retorno);
+        }
+
+        //atualiza o token do formulário
+        $retorno['token'] = csrf_hash();
+
+        $dados = $this->request->getGet();
+        $retorno['valor'] =  $this->totalVendas($dados['periodo']);
+
+        return $this->response->setJSON($retorno);
+    }
+
+    private function totalVendas($periodo)
+    {
+        if ($periodo == 'hoje') {
+            try {
+                $total_dia = $this->certificadoModel->selectCount('id', 'total_dia')
+                    ->where('DATE(emissao_em) = CURDATE()')
+                    ->get()->getResult();
+
+                if (!empty($total_dia)) {
+                    return  $total_dia[0]->total_dia;
+                } else {
+                    return 0;
+                }
+            } catch (\Exception $e) {
+                return 0;
+            }
+        } else if ($periodo == 'mês') {
+            try {
+                $total_mes = $this->certificadoModel->selectCount('id', 'total_mes')
+                    ->where('MONTH(emissao_em) = MONTH(NOW())')
+                    //->where('YEAR(emissao_em) = YEAR(NOW())')
+                    ->get()->getResult();
+
+                if (!empty($total_mes)) {
+                    return  $total_mes[0]->total_mes;
+                } else {
+                    return 0;
+                }
+            } catch (\Exception $e) {
+                return 0;
+            }
+        } else {
+            return 1805;
+        }
+    }
 }

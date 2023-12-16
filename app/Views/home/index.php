@@ -67,21 +67,21 @@
                   <h6>Filtrar</h6>
                 </li>
 
-                <li><a class="dropdown-item" href="#">Hoje</a></li>
-                <li><a class="dropdown-item" href="#">Este mês</a></li>
-                <li><a class="dropdown-item" href="#">Este ano</a></li>
+                <li><a class="dropdown-item" href="#" onclick="filtrarPor('hoje')">Hoje</a></li>
+                <li><a class="dropdown-item" href="#" onclick="filtrarPor('mês')">Este mês</a></li>
+                <li><a class="dropdown-item" href="#" onclick="filtrarPor('ano')">Este ano</a></li>
               </ul>
             </div>
 
             <div class="card-body">
-              <h5 class="card-title">Vendas <span>| Este mês</span></h5>
+              <h5 class="card-title">Vendas <span id="resumo-vendas"></span></h5>
 
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                   <i class="bi bi-cart"></i>
                 </div>
                 <div class="ps-3">
-                  <h6>1244</h6>
+                  <h6 id="total-vendas">1244</h6>
                 </div>
               </div>
 
@@ -235,7 +235,7 @@
 <script src="<?php echo base_url("assets/js-old/certificados.js") ?>"></script>
 <script>
   window.addEventListener('load', function() {
-    //carregarGraficos();
+    filtrarPor('mes');
   });
 </script>
 <?php $this->endSection(); ?>

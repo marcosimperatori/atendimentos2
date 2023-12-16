@@ -224,3 +224,30 @@ function chartCertificados() {
     chart.draw(data, options);
   });
 }
+
+function filtrarPor(periodo) {
+  $("#resumo-vendas").text("| " + periodo);
+  $.ajax({
+    url: "resumo-vendas",
+    type: "GET",
+    data: { periodo: periodo },
+    beforeSend: function () {
+      $("#total-vendas").LoadingOverlay("show", {
+        background: "rgba(165, 190, 100, 0.5)",
+      });
+    },
+    success: function (data) {
+      $("#total-vendas").text(data.valor);
+
+      if (data.resultado) {
+        console.log(data.resultado);
+      }
+    },
+    complete: function () {
+      $("#total-vendas").LoadingOverlay("hide");
+    },
+    error: function (error) {
+      console.error("Erro na chamada AJAX:", error);
+    },
+  });
+}
