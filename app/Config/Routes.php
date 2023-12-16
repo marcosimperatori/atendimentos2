@@ -50,6 +50,8 @@ $routes->get('clientes/deletar/(:alphanum)', 'ClienteController::deletar/$1');
 $routes->get('clientes/confirma_exclusao/(:alphanum)', 'ClienteController::confirma_exclusao/$1');
 $routes->post('clientes/cadastrar', 'ClienteController::cadastrar');
 $routes->post('clientes/atualizar', 'ClienteController::atualizar');
+$routes->get('resumo-clientes', 'ClienteController::resumoClientes');
+
 
 $routes->get('escritorios', 'EscritorioController::index');
 $routes->get('escritorios-all', 'EscritorioController::getAll');
@@ -59,6 +61,7 @@ $routes->get('escritorios/deletar/(:alphanum)', 'EscritorioController::deletar/$
 $routes->get('escritorios/confirma_exclusao/(:alphanum)', 'EscritorioController::confirma_exclusao/$1');
 $routes->post('escritorios/cadastrar', 'EscritorioController::cadastrar');
 $routes->post('escritorios/atualizar', 'EscritorioController::atualizar');
+$routes->get('resumo-escritorios', 'EscritorioController::resumoEscritorios');
 
 $routes->get('certificados', 'CertificadoController::index');
 $routes->get('certificados_get_all', 'CertificadoController::getAll');
@@ -72,6 +75,8 @@ $routes->get('certificados/consulta', 'CertificadoController::consultar');
 $routes->post('certificados/buscar', 'CertificadoController::buscaAvancada');
 $routes->get('certificados/pdf/(:any)', 'CertificadoController::exibirPDF/$1');
 $routes->get('resumo-vendas', 'CertificadoController::resumoVendas');
+$routes->get('lista-anos-vendas', 'CertificadoController::getAnosVenda');
+$routes->get('vendas-por-ano', 'CertificadoController::obterTotalVendasPorMes');
 
 $routes->get('tipos', 'TipoController::index');
 $routes->get('tipos-all', 'TipoController::getAll');

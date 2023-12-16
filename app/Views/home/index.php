@@ -19,16 +19,27 @@
         <!-- Sales Card -->
         <div class="col-xxl-4 col-md-6">
           <div class="card info-card customers-card">
+            <div class="filter">
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                  <h6>Filtrar</h6>
+                </li>
+
+                <li><a class="dropdown-item" href="#" onclick="filtrarClientes('1')">Ativos</a></li>
+                <li><a class="dropdown-item" href="#" onclick="filtrarClientes('0')">Inativos</a></li>
+              </ul>
+            </div>
 
             <div class="card-body">
-              <h5 class="card-title">Clientes ativos</h5>
+              <h5 class="card-title">Clientes <span id="resumo-cli"></h5>
 
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                   <i class="bi bi-people"></i>
                 </div>
                 <div class="ps-3">
-                  <h6><?php echo $clientes['ativos']; ?></h6>
+                  <h6 id="total-cli"></h6>
                 </div>
               </div>
             </div>
@@ -39,15 +50,28 @@
         <!-- Revenue Card -->
         <div class="col-xxl-4 col-md-6">
           <div class="card info-card sales-card">
+
+            <div class="filter">
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                  <h6>Filtrar</h6>
+                </li>
+
+                <li><a class="dropdown-item" href="#" onclick="filtrarEscritorios('1')">Ativos</a></li>
+                <li><a class="dropdown-item" href="#" onclick="filtrarEscritorios('0')">Inativos</a></li>
+              </ul>
+            </div>
+
             <div class="card-body">
-              <h5 class="card-title">Escritórios</h5>
+              <h5 class="card-title">Escritórios <span id="resumo-esc"></h5>
 
               <div class="d-flex align-items-center">
                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                   <i class="bi bi-currency-dollar"></i>
                 </div>
                 <div class="ps-3">
-                  <h6>264</h6>
+                  <h6 id="total-esc">0</h6>
                 </div>
               </div>
             </div>
@@ -81,7 +105,7 @@
                   <i class="bi bi-cart"></i>
                 </div>
                 <div class="ps-3">
-                  <h6 id="total-vendas">1244</h6>
+                  <h6 id="total-vendas">0</h6>
                 </div>
               </div>
 
@@ -104,6 +128,22 @@
                 </tr>
               </thead>
             </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div id="card-vendas" class="card overflow-auto">
+          <div class="card-body">
+            <h5 class="card-title">Histórico de vendas por ano</h5>
+            <div id="anos" class="form-floating mb-3 col-3">
+              <select class="form-select" id="select-anos" aria-label="Floating label select example">
+                <option selected>Selecione</option>
+              </select>
+              <label for="floatingSelect">Ano referência</label>
+            </div>
+
+            <div id="reportsChart"></div>
           </div>
         </div>
       </div>
@@ -235,7 +275,10 @@
 <script src="<?php echo base_url("assets/js-old/certificados.js") ?>"></script>
 <script>
   window.addEventListener('load', function() {
-    filtrarPor('mes');
+    filtrarPor('mês');
+    filtrarEscritorios('1');
+    filtrarClientes('1');
+    carregarAnoVendas();
   });
 </script>
 <?php $this->endSection(); ?>

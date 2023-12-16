@@ -251,3 +251,168 @@ function filtrarPor(periodo) {
     },
   });
 }
+
+function filtrarEscritorios(periodo) {
+  if (periodo == "1") {
+    $("#resumo-esc").text("| Ativos");
+  } else {
+    $("#resumo-esc").text("| Inativos");
+  }
+  $.ajax({
+    url: "resumo-escritorios",
+    type: "GET",
+    data: { periodo: periodo },
+    beforeSend: function () {
+      $("#total-esc").LoadingOverlay("show", {
+        background: "rgba(165, 190, 100, 0.5)",
+      });
+    },
+    success: function (data) {
+      $("#total-esc").text(data.valor);
+
+      if (data.resultado) {
+        console.log(data.resultado);
+      }
+    },
+    complete: function () {
+      $("#total-esc").LoadingOverlay("hide");
+    },
+    error: function (error) {
+      console.error("Erro na chamada AJAX:", error);
+    },
+  });
+}
+
+function filtrarClientes(periodo) {
+  if (periodo == "1") {
+    $("#resumo-cli").text("| Ativos");
+  } else {
+    $("#resumo-cli").text("| Inativos");
+  }
+  $.ajax({
+    url: "resumo-clientes",
+    type: "GET",
+    data: { periodo: periodo },
+    beforeSend: function () {
+      $("#total-cli").LoadingOverlay("show", {
+        background: "rgba(165, 190, 100, 0.5)",
+      });
+    },
+    success: function (data) {
+      $("#total-cli").text(data.valor);
+
+      if (data.resultado) {
+        console.log(data.resultado);
+      }
+    },
+    complete: function () {
+      $("#total-cli").LoadingOverlay("hide");
+    },
+    error: function (error) {
+      console.error("Erro na chamada AJAX:", error);
+    },
+  });
+}
+
+function carregarAnoVendas() {
+  $.ajax({
+    url: "lista-anos-vendas",
+    type: "GET",
+    dataType: "json",
+    beforeSend: function () {
+      $("#anos").LoadingOverlay("show", {
+        background: "rgba(165, 190, 100, 0.5)",
+      });
+    },
+    success: function (data) {
+      var selectAnos = $("#select-anos");
+
+      $.each(data, function (index, value) {
+        selectAnos.append(
+          '<option value="' + value.ano + '">' + value.ano + "</option>"
+        );
+      });
+    },
+    complete: function () {
+      $("#anos").LoadingOverlay("hide");
+    },
+    error: function () {
+      console.error("Erro ao obter anos.");
+    },
+  });
+}
+
+$("#select-anos").on("change", function () {
+  var valorSelecionado = $(this).val();
+  if (valorSelecionado != "Selecione") {
+    obterVendasAgrupadasPorMes(valorSelecionado);
+  }
+});
+
+function obterVendasAgrupadasPorMes(ano) {
+  $.ajax({
+    url: "vendas-por-ano",
+    type: "GET",
+    data: { ano: ano },
+    dataType: "json",
+    success: function (data) {
+      console.log(data);
+
+      var meses = Object.keys(data);
+      var totais = Object.values(data);
+
+      // Preencher o gráfico ApexCharts
+      preencherGrafico(meses, totais);
+    },
+    error: function () {
+      console.error("Erro ao obter total de vendas por mês.");
+    },
+  });
+}
+
+function preencherGrafico(meses, totais) {
+  new ApexCharts(document.querySelector("#reportsChart"), {
+    series: [
+      {
+        name: "Vendas",
+        data: totais,
+      },
+    ],
+    chart: {
+      height: 350,
+      type: "area",
+      toolbar: {
+        show: false,
+      },
+    },
+    markers: {
+      size: 4,
+    },
+    colors: [ "#2eca6a", "#4154f1", "#ff771d"],
+    fill: {
+      type: "gradient",
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.3,
+        opacityTo: 0.4,
+        stops: [0, 90, 100],
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "smooth",
+      width: 2,
+    },
+    xaxis: {
+      type: "Mês",
+      categories: meses,
+    },
+    tooltip: {
+      x: {
+        format: "MM",
+      },
+    },
+  }).render();
+}

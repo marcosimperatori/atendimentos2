@@ -449,7 +449,7 @@ class CertificadoController extends BaseController
             try {
                 $total_mes = $this->certificadoModel->selectCount('id', 'total_mes')
                     ->where('MONTH(emissao_em) = MONTH(NOW())')
-                    //->where('YEAR(emissao_em) = YEAR(NOW())')
+                    ->where('YEAR(emissao_em) = YEAR(NOW())')
                     ->get()->getResult();
 
                 if (!empty($total_mes)) {
@@ -461,7 +461,78 @@ class CertificadoController extends BaseController
                 return 0;
             }
         } else {
-            return 1805;
+            try {
+                $total_mes = $this->certificadoModel->selectCount('id', 'total_ano')
+                    ->where('YEAR(emissao_em) = YEAR(NOW())')
+                    ->get()->getResult();
+
+                if (!empty($total_mes)) {
+                    return  $total_mes[0]->total_ano;
+                } else {
+                    return 0;
+                }
+            } catch (\Exception $e) {
+                return 0;
+            }
+        }
+    }
+
+    public function getAnosVenda()
+    {
+        if (!$this->request->isAJAX()) {
+            $retorno['resultado'] = 'Sem permissão de acesso!';
+            return $this->response->setJSON($retorno);
+        }
+        //atualiza o token do formulário
+        $retorno['token'] = csrf_hash();
+
+
+        $anos = $this->obterAnos();
+        return $this->response->setJSON($anos);
+    }
+
+    private function obterAnos()
+    {
+        try {
+            $anos = $this->certificadoModel->select('YEAR(emissao_em) as ano', false)
+                ->distinct()
+                ->get()
+                ->getResultArray();
+            return $anos;
+        } catch (\Exception $e) {
+            return 0;
+        }
+    }
+
+    public function obterTotalVendasPorMes()
+    {
+        $dados = $this->request->getGet();
+        try {
+            $result = $this->certificadoModel
+                ->select('MONTH(emissao_em) as mes, COUNT(id) as total_mes')
+                ->where('YEAR(emissao_em)', $dados['ano'])
+                ->groupBY('mes')
+                ->get()
+                ->getResult();
+
+            $totalVendasPorMes = array();
+
+            // foreach ($result as $row) {
+            //     $totalVendasPorMes[$row->mes] = $row->total_mes;
+            // }
+
+            setlocale(LC_TIME, 'pt_BR.utf-8', 'portuguese');
+
+            foreach ($result as $row) {
+                // Converte o número do mês para o nome do mês por extenso
+                $nomeMes = strftime('%B', mktime(0, 0, 0, $row->mes, 1));
+
+                $totalVendasPorMes[$nomeMes] = $row->total_mes;
+            }
+
+            return $this->response->setJSON($totalVendasPorMes);
+        } catch (\Exception $e) {
+            return $this->response->setJSON("Falha ao computar as vendas");
         }
     }
 }

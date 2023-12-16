@@ -173,4 +173,38 @@ class EscritorioController extends BaseController
 
         return $escritorio;
     }
+
+    public function resumoEscritorios()
+    {
+        if (!$this->request->isAJAX()) {
+            $retorno['resultado'] = 'Sem permissão de acesso!';
+            return $this->response->setJSON($retorno);
+        }
+
+        //atualiza o token do formulário
+        $retorno['token'] = csrf_hash();
+
+        $dados = $this->request->getGet();
+        $retorno['valor'] =  $this->totalEscritorios($dados['periodo']);
+
+        return $this->response->setJSON($retorno);
+    }
+
+    private function totalEscritorios($ativo)
+    {
+
+        try {
+            $total = $this->escritorioModel->selectCount('id', 'total')
+                ->where('ativo', $ativo)
+                ->get()->getResult();
+
+            if (!empty($total)) {
+                return  $total[0]->total;
+            } else {
+                return 0;
+            }
+        } catch (\Exception $e) {
+            return 0;
+        }
+    }
 }
