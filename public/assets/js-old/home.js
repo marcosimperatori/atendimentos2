@@ -30,7 +30,7 @@ $("#vendas").DataTable({
   responsive: true,
   autoWidth: false,
   pagingType: $(window).width() < 768 ? "simple" : "simple_numbers",
-  pageLength: 10,
+  pageLength: 8,
   lengthChange: false,
   columnDefs: [
     {
@@ -360,8 +360,6 @@ function obterVendasAgrupadasPorMes(ano) {
 
       var meses = Object.keys(data);
       var totais = Object.values(data);
-
-      // Preencher o gráfico ApexCharts
       preencherGrafico(meses, totais);
     },
     error: function () {
@@ -371,7 +369,11 @@ function obterVendasAgrupadasPorMes(ano) {
 }
 
 function preencherGrafico(meses, totais) {
-  new ApexCharts(document.querySelector("#reportsChart"), {
+  if (window.grafico) {
+    window.grafico.destroy();
+  }
+
+  window.grafico = new ApexCharts(document.querySelector("#reportsChart"), {
     series: [
       {
         name: "Vendas",
@@ -388,7 +390,7 @@ function preencherGrafico(meses, totais) {
     markers: {
       size: 4,
     },
-    colors: [ "#2eca6a", "#4154f1", "#ff771d"],
+    colors: ["#2eca6a", "#4154f1", "#ff771d"],
     fill: {
       type: "gradient",
       gradient: {
@@ -399,7 +401,7 @@ function preencherGrafico(meses, totais) {
       },
     },
     dataLabels: {
-      enabled: false,
+      enabled: true,
     },
     stroke: {
       curve: "smooth",
@@ -409,10 +411,11 @@ function preencherGrafico(meses, totais) {
       type: "Mês",
       categories: meses,
     },
-    tooltip: {
-      x: {
-        format: "MM",
-      },
-    },
-  }).render();
+    /* tooltip: {
+        x: {
+          format: "MM",
+        },
+      },*/
+  });
+  grafico.render();
 }

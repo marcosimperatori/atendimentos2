@@ -136,11 +136,11 @@
         <div id="card-vendas" class="card overflow-auto">
           <div class="card-body">
             <h5 class="card-title">Histórico de vendas por ano</h5>
-            <div id="anos" class="form-floating mb-3 col-3">
+            <div id="anos" class="form-floating mb-3 col-lg-3 col-sm-8">
               <select class="form-select" id="select-anos" aria-label="Floating label select example">
                 <option selected>Selecione</option>
               </select>
-              <label for="floatingSelect">Ano referência</label>
+              <label for="floatingSelect">Ano</label>
             </div>
 
             <div id="reportsChart"></div>
