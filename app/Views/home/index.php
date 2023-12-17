@@ -140,7 +140,7 @@
               <select class="form-select" id="select-anos" aria-label="Floating label select example">
                 <option selected>Selecione</option>
               </select>
-              <label for="floatingSelect">Ano</label>
+              <label for="select-anos">Ano</label>
             </div>
 
             <div id="reportsChart"></div>

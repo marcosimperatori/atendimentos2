@@ -9,8 +9,8 @@ use App\Models\EscritorioModel;
 use App\Models\TipoModel;
 use DateInterval;
 use DateTime;
-use Doctrine\Common\Annotations\Annotation\Target;
-use Mpdf\Mpdf;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class CertificadoController extends BaseController
 {
@@ -296,11 +296,7 @@ class CertificadoController extends BaseController
             ->orderBy('nomecli', 'asc')->findAll();
 
         if (!empty($certificados)) {
-            // $mpdf = new \Mpdf\Mpdf();
-            // $html = '';
-
             foreach ($certificados as $certificado) {
-                //$html .= "<p>" . $certificado->nomecli . " (válido até: " . $certificado->validade . ")" . "</p>";
                 $data[] = [
                     'nome' => $certificado->nomecli,
                     'tipo'    => $certificado->descricao,
@@ -310,28 +306,57 @@ class CertificadoController extends BaseController
 
             $rel['conteudo'] = view('relatorios/vecto_por_escritorio', ['dados' => $certificados]);
 
+            $nomeArquivo = 'status_certificados.pdf';
+
             // Configurações do mPDF
-            $mpdf = new Mpdf();
+            /*$mpdf = new Mpdf();
             $mpdf->WriteHTML($rel['conteudo']);
 
             // Nome do arquivo PDF a ser gerado
-            $nomeArquivo = 'seu_arquivo.pdf';
+            $nomeArquivo = 'status_certificados.pdf';
 
             // Salva o PDF no servidor (opcional)
             $pdfPath = WRITEPATH . 'pdf/' . $nomeArquivo;
-            $mpdf->Output($pdfPath, 'F');
+            $mpdf->Output($pdfPath, 'F');*/
+
+            $dompdf = new Dompdf();
+            $options = new Options();
+            $options->set('isHtml5ParserEnabled', true);
+
+            $footer = '
+            <table width="100%">
+                <tr>
+                    <td align="center">{PAGE_NUM}/{PAGE_COUNT}</td>
+                </tr>
+            </table>
+            ';
+
+            $options->set('isPhpEnabled', true);
+            $options->set('isHtmlFooter', true);
+            $options->set('htmlFooter', $footer);
+
+            $dompdf->setOptions($options);
+
+            $dompdf->loadHtml($rel['conteudo']);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+
+            $pdfPath = WRITEPATH . 'pdf/' . $nomeArquivo;
+            file_put_contents($pdfPath, $dompdf->output());
 
             // Retorna a URL do PDF gerado
             $retorno['redirect_url'] = base_url('pdf/' . $nomeArquivo);
+
+
+            // $dompdf->stream('relatorio.pdf', ['Attachment' => 0]);
+
+
+            //$pdfPath = WRITEPATH . 'pdf/' . $nomeArquivo;
+            //file_put_contents($pdfPath, $dompdf->output());
+
+            // Retorna a URL do PDF gerado
+            //$retorno['redirect_url'] = base_url('pdf/' . $nomeArquivo);
             return $this->response->setJSON($retorno);
-
-            // Saída do PDF (exibido em nova aba)
-            // $mpdf->Output($nomeArquivo, 'I');
-            // exit();
-
-            // $retorno['data'] = $data;
-            // $retorno['redirect_url'] = "<a href=\"" . base_url('certificados/pdf/' . base64_encode($pdfPath)) . "\" target=\"_blank\">Clique aqui para ver seu relatório</a>";
-            //return $this->response->setJSON($retorno);
         }
 
         $retorno['info'] = "Não foi possível localizar registros com o filtro informado!";
@@ -342,16 +367,13 @@ class CertificadoController extends BaseController
     {
         $pdfPath = WRITEPATH . 'pdf/' . $nomeArquivo;
 
-        // Verifique se o arquivo PDF existe
         if (file_exists($pdfPath)) {
-            // Carregue o conteúdo do PDF e exiba
             $pdfContent = file_get_contents($pdfPath);
             header('Content-Type: application/pdf');
             echo $pdfContent;
             unlink($pdfPath);
             exit();
         } else {
-            // Se o arquivo não existir, exiba uma mensagem de erro ou redirecione conforme necessário
             die('Arquivo PDF não encontrado');
         }
     }
@@ -517,22 +539,56 @@ class CertificadoController extends BaseController
 
             $totalVendasPorMes = array();
 
-            // foreach ($result as $row) {
-            //     $totalVendasPorMes[$row->mes] = $row->total_mes;
-            // }
-
-            setlocale(LC_TIME, 'pt_BR.utf-8', 'portuguese');
-
             foreach ($result as $row) {
-                // Converte o número do mês para o nome do mês por extenso
-                $nomeMes = strftime('%B', mktime(0, 0, 0, $row->mes, 1));
-
-                $totalVendasPorMes[$nomeMes] = $row->total_mes;
+                $mes = $this->mesPorExtenso($row->mes);
+                $totalVendasPorMes[$mes] = $row->total_mes;
             }
 
             return $this->response->setJSON($totalVendasPorMes);
         } catch (\Exception $e) {
             return $this->response->setJSON("Falha ao computar as vendas");
+        }
+    }
+
+    private function mesPorExtenso($numeroMes)
+    {
+        switch ($numeroMes) {
+            case 1:
+                return 'Janeiro';
+                break;
+            case 2:
+                return 'Fevereiro';
+                break;
+            case 3:
+                return 'Março';
+                break;
+            case 4:
+                return 'Abril';
+                break;
+            case 5:
+                return 'Maio';
+                break;
+            case 6:
+                return 'Junho';
+                break;
+            case 7:
+                return 'Julho';
+                break;
+            case 8:
+                return 'Agosto';
+                break;
+            case 9:
+                return 'Setembro';
+                break;
+            case 10:
+                return 'Outubro';
+                break;
+            case 11:
+                return 'Novembro';
+                break;
+            case 12:
+                return 'Dezembro';
+                break;
         }
     }
 }

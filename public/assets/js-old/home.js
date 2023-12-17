@@ -35,10 +35,9 @@ $("#vendas").DataTable({
   columnDefs: [
     {
       width: "65px",
-      type: "date", // Defina o tipo de dados como "date" para a coluna de datas
-      targets: [0], // Especifique a coluna de datas
+      type: "date",
+      targets: [0],
       render: function (data, type, row) {
-        // Renderizar a data no formato "YYYY-MM-DD" para ordenação
         if (type === "sort" || type === "type") {
           return data.replace(/(\d{2})\/(\d{2})\/(\d{4})/, "$3-$2-$1");
         }
@@ -376,7 +375,7 @@ function preencherGrafico(meses, totais) {
   window.grafico = new ApexCharts(document.querySelector("#reportsChart"), {
     series: [
       {
-        name: "Vendas",
+        name: "Qtde Vendas",
         data: totais,
       },
     ],
