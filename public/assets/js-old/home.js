@@ -19,6 +19,11 @@ $("#vendas").DataTable({
       data: "nome",
     },
     {
+      data: "preco",
+      render: $.fn.dataTable.render.number(",", ".", 2, "R$ "),
+      className: "text-right",
+    },
+    {
       data: "tipo",
     },
   ],
@@ -50,9 +55,14 @@ $("#vendas").DataTable({
       targets: [0],
     },
     {
+      width: "100px",
+      className: "text-right",
+      targets: [2],
+    },
+    {
       width: "120px",
       className: "text-left",
-      targets: [2],
+      targets: [3],
     },
   ],
   order: [[0, "desc"]],

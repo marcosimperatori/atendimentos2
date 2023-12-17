@@ -30,9 +30,9 @@ class RootController extends BaseController
     private function CriarUsuario()
     {
         $usuario = [
-            'nome' => 'marcos',
-            'email' => 'marcos@email.com',
-            'senha' => '123'
+            'nome' => 'Alexandre',
+            'email' => 'alexandre.ad@gmail.com',
+            'senha' => 'alex123'
         ];
 
         if ($this->user->save($usuario)) {

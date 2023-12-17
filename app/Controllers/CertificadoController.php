@@ -207,7 +207,8 @@ class CertificadoController extends BaseController
         }
         $atributos = [
             'certificados.id', 'clientes.nomecli', 'certificados.ativo',
-            'certificados.validade', 'certificados.emissao_em', 'escritorios.nome', 'tipos.descricao'
+            'certificados.validade', 'certificados.emissao_em', 'escritorios.nome', 'tipos.descricao',
+            'certificados.preco_venda'
         ];
         $certificados = $this->certificadoModel->select($atributos)
             ->join('clientes', 'clientes.id = certificados.idcliente')
@@ -226,7 +227,8 @@ class CertificadoController extends BaseController
                 'validade'   => date('d/m/Y', strtotime($certificado->validade)),
                 'ativo'      => ($certificado->ativo == true ? '<i class="fa fa-toggle-on text-success"></i>&nbsp;Vigente' : '<i class="fa fa-toggle-off text-secondary"></i>&nbsp;Vencido'),
                 'acoes'      => '<a  href="' . base_url("certificados/editar/$id") . '" title="Editar"><i class="fas fa-edit text-success"></i></a> &nbsp; 
-                                 <a  href="' . base_url("certificados/deletar/$id") . '" title="Excluir"><i class="fas fa-trash-alt text-danger"></i></a>'
+                                 <a  href="' . base_url("certificados/deletar/$id") . '" title="Excluir"><i class="fas fa-trash-alt text-danger"></i></a>',
+                'preco'      => $certificado->preco_venda
             ];
         }
 
