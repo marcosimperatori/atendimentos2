@@ -308,17 +308,6 @@ class CertificadoController extends BaseController
 
             $nomeArquivo = 'status_certificados.pdf';
 
-            // Configurações do mPDF
-            /*$mpdf = new Mpdf();
-            $mpdf->WriteHTML($rel['conteudo']);
-
-            // Nome do arquivo PDF a ser gerado
-            $nomeArquivo = 'status_certificados.pdf';
-
-            // Salva o PDF no servidor (opcional)
-            $pdfPath = WRITEPATH . 'pdf/' . $nomeArquivo;
-            $mpdf->Output($pdfPath, 'F');*/
-
             $dompdf = new Dompdf();
             $options = new Options();
             $options->set('isHtml5ParserEnabled', true);
@@ -346,16 +335,6 @@ class CertificadoController extends BaseController
 
             // Retorna a URL do PDF gerado
             $retorno['redirect_url'] = base_url('pdf/' . $nomeArquivo);
-
-
-            // $dompdf->stream('relatorio.pdf', ['Attachment' => 0]);
-
-
-            //$pdfPath = WRITEPATH . 'pdf/' . $nomeArquivo;
-            //file_put_contents($pdfPath, $dompdf->output());
-
-            // Retorna a URL do PDF gerado
-            //$retorno['redirect_url'] = base_url('pdf/' . $nomeArquivo);
             return $this->response->setJSON($retorno);
         }
 
