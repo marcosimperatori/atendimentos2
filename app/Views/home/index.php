@@ -155,45 +155,47 @@
 
     <div class="col-lg-4">
       <div class="row">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Consulte vencimentos por escritório</h5>
-            <div class="row mb-3">
-              <div class="col-12">
-                <div id="consultando" class="collapse show" aria-labelledby="headingOne" data-parent="#consulta">
-                  <div class="card-body">
-                    <?php echo form_open('/', ['id' => 'form_pesquisa']) ?>
-                    <div class="row">
-                      <div class="col-lg-12">
-                        <label for="escritorio" class="col-form-label mt-2">Selecione o escritório</label>
-                        <select name="escritorio" id="escritorio" class="form-control">
-                          <option value="" selected>Selecione...</option>
-                          <?php foreach ($escritorios as $escritorio) : ?>
-                            <option value="<?php echo $escritorio->id; ?>">
-                              <?php echo $escritorio->nome; ?></option>
-                          <?php endforeach; ?>
-                        </select>
-                      </div>
+        <div class="col-lg-12">
+          <div class="card overflow-auto">
+            <div class="card-body">
+              <h5 class="card-title">Consulte vencimentos por escritório</h5>
+              <div class="row mb-3">
+                <div class="col-12">
+                  <div id="consultando" class="collapse show" aria-labelledby="headingOne" data-parent="#consulta">
+                    <div class="card-body">
+                      <?php echo form_open('/', ['id' => 'form_pesquisa']) ?>
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <label for="escritorio" class="col-form-label mt-2">Selecione o escritório</label>
+                          <select name="escritorio" id="escritorio" class="form-control">
+                            <option value="" selected>Selecione...</option>
+                            <?php foreach ($escritorios as $escritorio) : ?>
+                              <option value="<?php echo $escritorio->id; ?>">
+                                <?php echo $escritorio->nome; ?></option>
+                            <?php endforeach; ?>
+                          </select>
+                        </div>
 
-                      <div class="form-group col-lg-6">
-                        <label for="validade" class="form-label mt-2">A partir de</label>
-                        <input type="date" class="form-control" id="inicio" name="inicio">
-                      </div>
+                        <div class="form-group col-lg-6">
+                          <label for="validade" class="form-label mt-2">A partir de</label>
+                          <input type="date" class="form-control" id="inicio" name="inicio">
+                        </div>
 
-                      <div class="form-group col-lg-6">
-                        <label for="validade" class="form-label mt-2">Final até</label>
-                        <input type="date" class="form-control" id="final" name="final">
-                      </div>
+                        <div class="form-group col-lg-6">
+                          <label for="validade" class="form-label mt-2">Final até</label>
+                          <input type="date" class="form-control" id="final" name="final">
+                        </div>
 
-                      <div class="form-group col-lg-2">
-                        <label class="d-none d-lg-block mt-2">&nbsp;</label>
-                        <button id="pavancada" type="submit" class="btn btn-primary btn-sm">Pesquisar</button>
+                        <div class="form-group col-lg-2">
+                          <label class="d-none d-lg-block mt-2">&nbsp;</label>
+                          <button id="pavancada" type="submit" class="btn btn-primary btn-sm mt-3">Pesquisar</button>
+                        </div>
                       </div>
+                      <?php form_close(); ?>
+                      <div id="resultado" style="background-color: white;"></div>
+                      <div id="response"></div>
+
                     </div>
-                    <?php form_close(); ?>
-                    <div id="resultado" style="background-color: white;"></div>
-                    <div id="response"></div>
-
                   </div>
                 </div>
               </div>
@@ -202,63 +204,65 @@
         </div>
       </div>
       <div class="row">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Situação dos certificados</h5>
-            <div class="row mb-3">
-              <div class="card-body pb-0">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Situação dos certificados</h5>
+              <div class="row mb-3">
+                <div class="card-body pb-0">
 
-                <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
+                  <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
 
-                <script>
-                  document.addEventListener("DOMContentLoaded", () => {
-                    echarts.init(document.querySelector("#trafficChart")).setOption({
-                      tooltip: {
-                        trigger: 'item'
-                      },
-                      legend: {
-                        top: '5%',
-                        left: 'center'
-                      },
-                      series: [{
-                        name: 'Quantidade',
-                        type: 'pie',
-                        radius: ['40%', '70%'],
-                        avoidLabelOverlap: false,
-                        label: {
-                          show: false,
-                          position: 'center'
+                  <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                      echarts.init(document.querySelector("#trafficChart")).setOption({
+                        tooltip: {
+                          trigger: 'item'
                         },
-                        emphasis: {
+                        legend: {
+                          top: '5%',
+                          left: 'center'
+                        },
+                        series: [{
+                          name: 'Quantidade',
+                          type: 'pie',
+                          radius: ['40%', '70%'],
+                          avoidLabelOverlap: false,
                           label: {
-                            show: true,
-                            fontSize: '18',
-                            fontWeight: 'bold'
-                          }
-                        },
-                        labelLine: {
-                          show: false
-                        },
-                        data: [{
-                            value: <?php echo $cert['vencidos']; ?>,
-                            name: 'Vencidos'
+                            show: false,
+                            position: 'center'
                           },
-                          {
-                            value: <?php echo $cert['vigentes']; ?>,
-                            name: 'Vigentes'
+                          emphasis: {
+                            label: {
+                              show: true,
+                              fontSize: '18',
+                              fontWeight: 'bold'
+                            }
                           },
-                          {
-                            value: <?php echo $cert['renovar']; ?>,
-                            name: 'A renovar'
+                          labelLine: {
+                            show: false
                           },
-                        ]
-                      }]
+                          data: [{
+                              value: <?php echo $cert['vencidos']; ?>,
+                              name: 'Vencidos'
+                            },
+                            {
+                              value: <?php echo $cert['vigentes']; ?>,
+                              name: 'Vigentes'
+                            },
+                            {
+                              value: <?php echo $cert['renovar']; ?>,
+                              name: 'A renovar'
+                            },
+                          ]
+                        }]
+                      });
                     });
-                  });
-                </script>
+                  </script>
 
-              </div>
-            </div><!-- End Website Traffic -->
+                </div>
+              </div><!-- End Website Traffic -->
+            </div>
           </div>
         </div>
       </div>
